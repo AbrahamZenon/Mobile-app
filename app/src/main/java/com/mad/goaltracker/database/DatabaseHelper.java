@@ -329,32 +329,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return goalList;
     }
 
-    public Goal getGoalById(int goalId) {
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_GOALS, null, COLUMN_GOAL_ID + " = ?",
-                new String[]{String.valueOf(goalId)}, null, null, null);
-        Goal goal = null;
-        if (cursor != null) {
-            if (cursor.moveToFirst()) {
-                goal = new Goal(
-                        cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_GOAL_ID)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_GOAL_TITLE)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_GOAL_DESC)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_GOAL_CATEGORY)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_GOAL_TYPE)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_GOAL_DIFFICULTY)),
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_GOAL_DEADLINE)),
-                        cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_GOAL_PROGRESS)),
-                        cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_GOAL_IS_COMPLETED)) == 1,
-                        cursor.getString(cursor.getColumnIndexOrThrow(COLUMN_GOAL_CREATED_AT))
-                );
-            }
-            cursor.close();
-        }
-        db.close();
-        return goal;
-    }
-
     // ==========================================
     // CÁC THAO TÁC CHO TASK (KẾ HOẠCH HÀNH ĐỘNG)
     // ==========================================
