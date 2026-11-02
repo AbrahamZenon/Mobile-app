@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">GoalTracker</string>
+    <string name="title_dashboard">Mục Tiêu Của Tôi</string>
+    <string name="btn_add_goal">Thêm Mục Tiêu Mới</string>
+    <string name="label_category">Lĩnh vực:</string>
+    <string name="label_difficulty">Độ khó:</string>
+    <string name="label_deadline">Hạn chót:</string>
+    <string name="label_priority">Ưu tiên:</string>
+    <string name="filter_all">Tất cả</string>
+    <string name="filter_health">Sức khỏe</string>
+    <string name="filter_work">Công việc</string>
+    <string name="filter_study">Học tập</string>
+    <string name="filter_finance">Tài chính</string>
+    <string name="filter_hobby">Sở thích</string>
+</resources>

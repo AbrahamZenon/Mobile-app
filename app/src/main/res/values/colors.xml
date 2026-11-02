@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#4361EE</color>
+    <color name="primary_variant">#3F37C9</color>
+    <color name="secondary">#4CC9F0</color>
+    <color name="accent">#7209B7</color>
+    <color name="background">#F8F9FA</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="text_primary">#2B2D42</color>
+    <color name="text_secondary">#8D99AE</color>
+    <color name="divider">#E9ECEF</color>
+    
+    <!-- Priority Colors -->
+    <color name="priority_high">#EF476F</color>
+    <color name="priority_medium">#FFD166</color>
+    <color name="priority_low">#06D6A0</color>
+    
+    <!-- Category Colors -->
+    <color name="cat_health">#06D6A0</color>
+    <color name="cat_work">#118AB2</color>
+    <color name="cat_study">#7209B7</color>
+    <color name="cat_finance">#FFD166</color>
+    <color name="cat_hobby">#F72585</color>
+</resources>

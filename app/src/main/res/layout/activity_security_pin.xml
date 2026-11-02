@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="28dp"
+    android:background="@color/background">
+
+    <ImageView
+        android:id="@+id/ivSecurityIcon"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:src="@android:drawable/ic_lock_lock"
+        android:contentDescription="Bảo mật" />
+
+    <TextView
+        android:id="@+id/tvSecurityTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bảo Mật Quyền Riêng Tư 🔒"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/tvSecurityPrompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nhập mã PIN gồm 4 số để bảo vệ thông tin mục tiêu cá nhân của bạn."
+        android:textSize="14sp"
+        android:textColor="@color/text_secondary"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="24dp" />
+
+    <EditText
+        android:id="@+id/etPinCode"
+        android:layout_width="160dp"
+        android:layout_height="56dp"
+        android:inputType="numberPassword"
+        android:maxLength="4"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.4"
+        android:background="@android:drawable/editbox_background" />
+
+    <Button
+        android:id="@+id/btnSubmitPin"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="XÁC NHẬN"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:backgroundTint="@color/primary"
+        android:textColor="@color/surface"
+        android:layout_marginTop="24dp" />
+
+    <Button
+        android:id="@+id/btnDisablePin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tắt bảo mật mã PIN"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:textColor="@color/text_secondary"
+        android:visibility="gone"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>
