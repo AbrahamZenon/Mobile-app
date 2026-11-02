@@ -1,8 +1,8 @@
 # PHẦN 2 – KẾT QUẢ TỪNG THÀNH VIÊN
 ## BÁO CÁO KẾT QUẢ CÁ NHÂN: THÀNH VIÊN 2
 
-- **Họ và tên:** [Điền Họ và Tên Thành Viên 2]
-- **Mã sinh viên:** [Điền MSSV]
+- **Họ và tên:** Nguyễn Hoàng Anh Đức
+- **Mã sinh viên:** B23DCVT097
 - **Chức năng đảm nhiệm:** Module Theo Dõi Tiến Độ, Thống Kê Trực Quan & Hệ Thống Động Lực Khích Lệ
 
 ---

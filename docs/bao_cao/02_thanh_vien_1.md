@@ -1,8 +1,8 @@
 # PHẦN 2 – KẾT QUẢ TỪNG THÀNH VIÊN
 ## BÁO CÁO KẾT QUẢ CÁ NHÂN: THÀNH VIÊN 1
 
-- **Họ và tên:** [Điền Họ và Tên Thành Viên 1]
-- **Mã sinh viên:** [Điền Mã Sinh Viên]
+- **Họ và tên:** Nguyễn Tất Khôi Nguyên
+- **Mã sinh viên:** B23DCVT315
 - **Chức năng đảm nhiệm chính:** Module Quản Lý Mục Tiêu Cá Nhân, Kế Hoạch Hành Động Ngày/Tuần, Nhật Ký Hành Trình & Bảo Mật Quyền Riêng Tư.
 
 ---
