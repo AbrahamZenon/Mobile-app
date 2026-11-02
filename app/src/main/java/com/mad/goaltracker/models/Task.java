@@ -10,11 +10,16 @@ public class Task implements Serializable {
     private String planType; // Hàng ngày (Daily), Hàng tuần (Weekly)
     private String dueDate;  // YYYY-MM-DD
     private boolean isCompleted;
+    private String completedAt; // YYYY-MM-DD HH:mm:ss
 
     public Task() {
     }
 
     public Task(int id, int goalId, String title, String priority, String planType, String dueDate, boolean isCompleted) {
+        this(id, goalId, title, priority, planType, dueDate, isCompleted, null);
+    }
+
+    public Task(int id, int goalId, String title, String priority, String planType, String dueDate, boolean isCompleted, String completedAt) {
         this.id = id;
         this.goalId = goalId;
         this.title = title;
@@ -22,6 +27,7 @@ public class Task implements Serializable {
         this.planType = planType;
         this.dueDate = dueDate;
         this.isCompleted = isCompleted;
+        this.completedAt = completedAt;
     }
 
     public Task(int goalId, String title, String priority, String planType, String dueDate) {
@@ -31,6 +37,7 @@ public class Task implements Serializable {
         this.planType = planType;
         this.dueDate = dueDate;
         this.isCompleted = false;
+        this.completedAt = null;
     }
 
     public int getId() { return id; }
@@ -53,4 +60,7 @@ public class Task implements Serializable {
 
     public boolean isCompleted() { return isCompleted; }
     public void setCompleted(boolean completed) { isCompleted = completed; }
+
+    public String getCompletedAt() { return completedAt; }
+    public void setCompletedAt(String completedAt) { this.completedAt = completedAt; }
 }
