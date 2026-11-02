@@ -44,30 +44,6 @@ Trong cuộc sống hiện đại, việc quản lý thời gian và duy trì k�
 
 Kế hoạch được chia làm **6 giai đoạn (Sprints)**, đảm bảo tiến độ từ nghiên cứu đến bàn giao sản phẩm:
 
-```mermaid
-gantt
-    title KẾ HOẠCH BÀI TẬP NHÓM (6 TUẦN)
-    dateFormat  YYYY-MM-DD
-    section Giai đoạn 1: Khởi động
-    Khảo sát & Phân tích yêu cầu (SRS)    :done, w1_1, 2026-11-03, 3d
-    Use Case tổng quát & Thiết kế ERD     :done, w1_2, 2026-11-06, 4d
-    section Giai đoạn 2: Thiết kế & Setup
-    Thiết kế UI/UX trên Figma             :active, w2_1, 2026-11-10, 4d
-    Setup Repo GitHub & Kiến trúc dự án   :active, w2_2, 2026-11-13, 3d
-    section Giai đoạn 3: Phát triển Core
-    TV1: CRUD Mục tiêu & Tasks ngày/tuần  :w3_1, 2026-11-17, 7d
-    TV2: Tracking tiến độ & Biểu đồ      :w3_2, 2026-11-17, 7d
-    section Giai đoạn 4: Nâng cao & Khích lệ
-    TV1: Nhật ký, ghi chú, bảo mật        :w4_1, 2026-11-24, 7d
-    TV2: Gamification, Badge, Notification:w4_2, 2026-11-24, 7d
-    section Giai đoạn 5: Tích hợp & Test
-    Tích hợp module & Review chéo code    :w5_1, 2026-12-01, 4d
-    Testing, Fix lỗi & Tối ưu hiệu năng   :w5_2, 2026-12-05, 3d
-    section Giai đoạn 6: Nghiệm thu & Báo cáo
-    Hoàn thiện file Báo cáo BTL (Word/PDF):w6_1, 2026-12-08, 4d
-    Quay video demo app & Slide thuyết trình:w6_2, 2026-12-11, 3d
-```
-
 ### Chi tiết từng giai đoạn:
 
 #### 🔹 Tuần 1: Khởi Động & Phân Tích Hệ Thống
