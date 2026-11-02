@@ -5,7 +5,7 @@
 
 ---
 
-## 📌 MỤC LỤC
+##  MỤC LỤC
 1. [Giới Thiệu Dự Án](#-giới-thiệu-dự-án)
 2. [Thông Tin Thành Viên & Bảng Phân Công Công Việc](#-thông-tin-thành-viên--bảng-phân-công-công-việc)
 3. [Kế Hoạch Thực Hiện Chi Tiết (Project Roadmap)](#-kế-hoạch-thực-hiện-chi-tiết-project-roadmap)
@@ -17,7 +17,7 @@
 
 ---
 
-## 📖 1. GIỚI THIỆU DỰ ÁN
+##  1. GIỚI THIỆU DỰ ÁN
 Trong cuộc sống hiện đại, việc quản lý thời gian và duy trì kỷ luật để đạt được các mục tiêu cá nhân (học tập, sự nghiệp, sức khỏe, thói quen) là thách thức lớn đối với nhiều người.
 
 **Ứng dụng Quản Lý & Theo Dõi Mục Tiêu Cá Nhân** giúp người dùng:
@@ -29,7 +29,7 @@ Trong cuộc sống hiện đại, việc quản lý thời gian và duy trì k�
 
 ---
 
-## 👥 2. THÔNG TIN THÀNH VIÊN & BẢNG PHÂN CÔNG CÔNG VIỆC
+##  2. THÔNG TIN THÀNH VIÊN & BẢNG PHÂN CÔNG CÔNG VIỆC
 
 *(Áp dụng theo đúng mẫu Bìa Báo Cáo BTL MAD: tổng công sức đóng góp đạt 100%)*
 
@@ -40,7 +40,7 @@ Trong cuộc sống hiện đại, việc quản lý thời gian và duy trì k�
 
 ---
 
-## 📅 3. KẾ HOẠCH THỰC HIỆN CHI TIẾT (PROJECT ROADMAP)
+##  3. KẾ HOẠCH THỰC HIỆN CHI TIẾT (PROJECT ROADMAP)
 
 Kế hoạch được chia làm **6 giai đoạn (Sprints)**, đảm bảo tiến độ từ nghiên cứu đến bàn giao sản phẩm:
 
@@ -95,7 +95,7 @@ Kế hoạch được chia làm **6 giai đoạn (Sprints)**, đảm bảo tiế
 
 ---
 
-## 🔍 4. PHÂN RÃ CHỨC NĂNG BÁM SÁT YÊU CẦU ĐỀ TÀI
+##  4. PHÂN RÃ CHỨC NĂNG BÁM SÁT YÊU CẦU ĐỀ TÀI
 
 | Nhóm chức năng (Theo Đề tài 15) | Mô tả chi tiết | Thành viên phụ trách chính |
 |:---|:---|:---:|
@@ -110,7 +110,7 @@ Kế hoạch được chia làm **6 giai đoạn (Sprints)**, đảm bảo tiế
 
 ---
 
-## 📂 5. CẤU TRÚC THƯ MỤC REPOSITORY (GITHUB OUTLINE)
+##  5. CẤU TRÚC THƯ MỤC REPOSITORY (GITHUB OUTLINE)
 
 Repository đã được dựng sẵn cấu trúc outline chuyên nghiệp để 2 thành viên thuận tiện push code và tài liệu:
 
@@ -146,7 +146,7 @@ Mobile-app/
 
 ---
 
-## 🌿 6. QUY TRÌNH PHỐI HỢP & QUY CHUẨN GIT (GIT WORKFLOW)
+##  6. QUY TRÌNH PHỐI HỢP & QUY CHUẨN GIT (GIT WORKFLOW)
 
 Để tránh xung đột code (conflict) giữa 2 thành viên, nhóm áp dụng chiến lược phân nhánh chuẩn:
 
@@ -172,7 +172,7 @@ Mobile-app/
 
 ---
 
-## 🛠️ 7. ĐỀ XUẤT CÔNG NGHỆ & KIẾN TRÚC KỸ THUẬT
+##  7. ĐỀ XUẤT CÔNG NGHỆ & KIẾN TRÚC KỸ THUẬT
 
 ### 1. Công nghệ đề xuất:
 - **Ngôn ngữ & Framework:** **Flutter (Dart)** hoặc **React Native** (Hỗ trợ đa nền tảng Android/iOS, dựng UI nhanh, thư viện phong phú) hoặc **Android Native (Kotlin + Jetpack Compose)**.
@@ -192,11 +192,10 @@ Mobile-app/
 
 ---
 
-## 📝 8. CHUẨN BỊ KHUNG BÁO CÁO BÀI TẬP NHÓM
+##  8. CHUẨN BỊ KHUNG BÁO CÁO BÀI TẬP NHÓM
 Nội dung báo cáo chi tiết được chuẩn bị sẵn trong thư mục `docs/bao_cao/` bám sát 100% tài liệu hướng dẫn của Giảng viên:
 - **Trang bìa:** Tên đề tài, bảng phân công nhiệm vụ và ước tính % đóng góp.
 - **Phần 1 - Công việc chung:** Lý do lựa chọn, so sánh thị trường, đặc tả chức năng/phi chức năng, Use Case tổng quát, kiến trúc, sơ đồ CSDL, điểm mới & khó.
 - **Phần 2 - Kết quả từng thành viên:** Luồng thực hiện (Activity Diagram), thiết kế màn hình, giải pháp kỹ thuật cụ thể và hướng phát triển tương lai cho từng module.
 
 ---
-*Chúc nhóm 2 bạn hoàn thành xuất sắc Bài tập lớn môn Phát triển ứng dụng di động! 🚀*
