@@ -34,6 +34,9 @@ public class ReminderNotificationHelper {
     public static final String TITLE_FALLBACK_DEFAULT = "GoalTracker Nhắc Nhở";
     public static final String CONTENT_FALLBACK_DEFAULT = "Đừng quên theo dõi và cập nhật tiến độ mục tiêu của bạn nhé!";
 
+    // Cổng xác thực bảo mật bắt buộc của ứng dụng: Mở SecurityPinActivity để không bỏ qua xác thực PIN
+    public static final String TARGET_ENTRY_ACTIVITY = "com.mad.goaltracker.activities.SecurityPinActivity";
+
     /**
      * Tạo Notification Channel cho Android 8.0 (API 26) trở lên.
      * Hàm có tính idempotent, an toàn khi gọi nhiều lần mà không ghi đè cấu hình người dùng.
@@ -144,9 +147,10 @@ public class ReminderNotificationHelper {
             content = getStringResource(context, "notification_default_content", CONTENT_FALLBACK_DEFAULT);
         }
 
-        // Intent mở MainActivity khi người dùng chạm vào thông báo
+        // Intent mở cổng xác thực SecurityPinActivity khi người dùng chạm vào thông báo
+        // (Bảo vệ an toàn dữ liệu: nếu người dùng bật mã PIN, phải xác thực trước khi vào MainActivity)
         Intent intent = new Intent();
-        intent.setClassName(context.getPackageName(), "com.mad.goaltracker.activities.MainActivity");
+        intent.setClassName(context.getPackageName(), TARGET_ENTRY_ACTIVITY);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         int pendingIntentFlags = PendingIntent.FLAG_UPDATE_CURRENT;

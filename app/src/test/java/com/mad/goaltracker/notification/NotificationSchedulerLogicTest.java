@@ -107,4 +107,22 @@ public class NotificationSchedulerLogicTest {
         assertFalse(ReminderNotificationHelper.TITLE_EVENING_DEFAULT.isEmpty());
         assertTrue("Title should be Vietnamese", ReminderNotificationHelper.TITLE_EVENING_DEFAULT.contains("hôm nay"));
     }
+
+    @Test
+    public void test09_NotificationEntryPointsToSecurityPinActivity_NoPinBypass() {
+        // Kiểm tra bảo mật: Notification PendingIntent bắt buộc phải trỏ vào SecurityPinActivity
+        // để người dùng không thể bypass màn hình khóa PIN khi chạm vào thông báo
+        assertEquals("Target entry activity must be SecurityPinActivity to enforce PIN security",
+                "com.mad.goaltracker.activities.SecurityPinActivity",
+                ReminderNotificationHelper.TARGET_ENTRY_ACTIVITY);
+    }
+
+    @Test
+    public void test10_ApiCompatibilityBranchingContracts() {
+        // Channel ID chỉ áp dụng cho API 26+
+        assertNotNull(ReminderNotificationHelper.CHANNEL_ID);
+        // Tên channel và mô tả mặc định không được null
+        assertNotNull(ReminderNotificationHelper.CHANNEL_NAME_DEFAULT);
+        assertNotNull(ReminderNotificationHelper.CHANNEL_DESC_DEFAULT);
+    }
 }
