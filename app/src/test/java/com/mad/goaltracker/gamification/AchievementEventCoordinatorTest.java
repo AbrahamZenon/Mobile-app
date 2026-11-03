@@ -153,6 +153,81 @@ public class AchievementEventCoordinatorTest {
         assertTrue(store.hasPendingBadges());
     }
 
+    @Test
+    public void testMarkSpecificBadgesAsCelebratedLeavesOtherPending() {
+        store.addPendingBadges(Arrays.asList("FIRST_TASK", "GOAL_COMPLETED"));
+        assertEquals(2, store.getPendingBadgeCodes().size());
+
+        // Chỉ xác nhận một huy hiệu đã hiển thị trong dialog (FIRST_TASK)
+        store.markBadgesAsCelebrated(Collections.singletonList("FIRST_TASK"));
+
+        List<String> pending = store.getPendingBadgeCodes();
+        assertEquals(1, pending.size());
+        assertEquals("GOAL_COMPLETED", pending.get(0));
+
+        // Huy hiệu đã xác nhận không thể bị thêm lại
+        store.addPendingBadge("FIRST_TASK");
+        assertEquals(1, store.getPendingBadgeCodes().size());
+        assertEquals("GOAL_COMPLETED", store.getPendingBadgeCodes().get(0));
+    }
+
+    @Test
+    public void testSimulateAppKillBeforeAcknowledgement() {
+        store.addPendingBadge("FIRST_GOAL");
+
+        // Giả lập UI lấy pending để hiển thị Dialog
+        List<String> badgesForDialog = store.getPendingBadgeCodes();
+        assertEquals(1, badgesForDialog.size());
+
+        // Giả lập app bị kill / đóng đột ngột (KHÔNG gọi markBadgesAsCelebrated)
+        // Khi mở lại ứng dụng, pending vẫn phải còn nguyên vẹn
+        PendingAchievementStore newSessionStore = new PendingAchievementStore(fakePrefs);
+        assertTrue(newSessionStore.hasPendingBadges());
+        assertEquals("FIRST_GOAL", newSessionStore.getPendingBadgeCodes().get(0));
+
+        // Người dùng xem và bấm xác nhận
+        newSessionStore.markBadgesAsCelebrated(Collections.singletonList("FIRST_GOAL"));
+        assertFalse(newSessionStore.hasPendingBadges());
+    }
+
+    @Test
+    public void testNewBadgeArrivesWhileExistingBadgePending() {
+        // Huy hiệu 1 xuất hiện
+        store.addPendingBadge("FIRST_TASK");
+
+        // Dialog đang mở với huy hiệu 1 (chưa bấm nút đóng)
+        List<String> currentDialogBadges = Collections.singletonList("FIRST_TASK");
+
+        // Trong lúc đó, một sự kiện nền mở thêm huy hiệu 2
+        store.addPendingBadge("PRODUCTIVITY_10");
+
+        // Người dùng đóng Dialog hiện tại -> chỉ xác nhận huy hiệu 1
+        store.markBadgesAsCelebrated(currentDialogBadges);
+
+        // Huy hiệu 2 không được bị mất, vẫn nằm trong hàng đợi pending
+        List<String> remainingPending = store.getPendingBadgeCodes();
+        assertEquals(1, remainingPending.size());
+        assertEquals("PRODUCTIVITY_10", remainingPending.get(0));
+    }
+
+    @Test
+    public void testThreadSafetyConcurrentAccess() throws InterruptedException {
+        int threadCount = 8;
+        Thread[] threads = new Thread[threadCount];
+        for (int i = 0; i < threadCount; i++) {
+            final String badgeCode = "BADGE_" + i;
+            threads[i] = new Thread(() -> {
+                store.addPendingBadge(badgeCode);
+                store.getPendingBadgeCodes();
+            });
+            threads[i].start();
+        }
+        for (Thread t : threads) {
+            t.join();
+        }
+        assertEquals(threadCount, store.getPendingBadgeCodes().size());
+    }
+
     // =========================================================================
     // IN-MEMORY FAKE SHAREDPREFERENCES CHO KIỂM THỬ ĐƠN VỊ THUẦN TÚY (NO ROBOLECTRIC)
     // =========================================================================

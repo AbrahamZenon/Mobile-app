@@ -174,7 +174,6 @@ public class GamificationActivity extends AppCompatActivity implements BadgeAdap
                             // Nếu có huy hiệu vừa mở khóa thành công, hiển thị Dialog chúc mừng
                             if (newlyUnlocked != null && !newlyUnlocked.isEmpty()) {
                                 showAchievementDialog(newlyUnlocked);
-                                com.mad.goaltracker.gamification.AchievementEventCoordinator.markAchievementsCelebrated(GamificationActivity.this);
                             }
 
                             hasEvaluatedBadges = true;
@@ -239,6 +238,8 @@ public class GamificationActivity extends AppCompatActivity implements BadgeAdap
      */
     private void showAchievementDialog(List<Badge> newlyUnlocked) {
         if (newlyUnlocked == null || newlyUnlocked.isEmpty()) return;
+        if (isFinishing() || isDestroyed() || getSupportFragmentManager().isStateSaved()) return;
+        if (getSupportFragmentManager().findFragmentByTag(AchievementDialogFragment.TAG) != null) return;
 
         AchievementDialogFragment dialog = AchievementDialogFragment.newCelebrationInstance(new ArrayList<>(newlyUnlocked));
         dialog.show(getSupportFragmentManager(), AchievementDialogFragment.TAG);

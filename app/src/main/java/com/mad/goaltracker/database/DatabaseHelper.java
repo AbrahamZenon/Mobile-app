@@ -385,7 +385,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    public void updateTaskCompletion(int taskId, boolean isCompleted, int goalId) {
+    public boolean updateTaskCompletion(int taskId, boolean isCompleted, int goalId) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         // Đọc trạng thái cũ trước khi quyết định ghi timestamp
@@ -400,7 +400,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (cursor == null || !cursor.moveToFirst()) {
             if (cursor != null) cursor.close();
             db.close();
-            return; // Task không tồn tại
+            return false; // Task không tồn tại
         }
 
         int oldIsCompleted = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_TASK_IS_COMPLETED));
@@ -422,11 +422,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             values.putNull(COLUMN_TASK_COMPLETED_AT);
         }
 
-        db.update(TABLE_TASKS, values, COLUMN_TASK_ID + " = ?", new String[]{String.valueOf(taskId)});
+        int rows = db.update(TABLE_TASKS, values, COLUMN_TASK_ID + " = ?", new String[]{String.valueOf(taskId)});
         db.close();
 
         // Tự động tính lại tiến độ của mục tiêu cha
         recalculateGoalProgress(goalId);
+
+        return rows > 0 && oldIsCompleted == 0 && isCompleted;
     }
 
     public void deleteTask(int taskId, int goalId) {

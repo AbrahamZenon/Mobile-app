@@ -123,8 +123,19 @@ public class AchievementEventCoordinator {
     }
 
     /**
+     * Đánh dấu danh sách các mã huy hiệu cụ thể đã được người dùng xem và xác nhận.
+     */
+    public static void markBadgesCelebrated(Context context, List<String> badgeCodes) {
+        if (context == null || badgeCodes == null || badgeCodes.isEmpty()) return;
+        PendingAchievementStore store = new PendingAchievementStore(context);
+        store.markBadgesAsCelebrated(badgeCodes);
+        Log.i(TAG, "Đã ghi nhận xác nhận xem thành tích cho các huy hiệu: " + badgeCodes);
+    }
+
+    /**
      * Kiểm tra và hiển thị Achievement Celebration Dialog nếu có huy hiệu mới đang chờ.
-     * Tự động xóa trạng thái pending sau khi hiển thị.
+     * Chú ý: Trạng thái pending KHÔNG bị xóa ngay khi show dialog. Chỉ khi người dùng thực sự
+     * đóng hoặc xác nhận dialog, các huy hiệu hiển thị trong dialog mới được đánh dấu celebrated.
      *
      * @return true nếu có hiển thị dialog, false nếu không có huy hiệu nào pending
      */
@@ -133,8 +144,7 @@ public class AchievementEventCoordinator {
             return false;
         }
 
-        List<Badge> pendingBadges = getPendingBadgesToCelebrate(activity, dbHelper);
-        if (pendingBadges.isEmpty()) {
+        if (activity.getSupportFragmentManager().isStateSaved()) {
             return false;
         }
 
@@ -143,11 +153,14 @@ public class AchievementEventCoordinator {
             return false;
         }
 
+        List<Badge> pendingBadges = getPendingBadgesToCelebrate(activity, dbHelper);
+        if (pendingBadges.isEmpty()) {
+            return false;
+        }
+
         AchievementDialogFragment dialog = AchievementDialogFragment.newCelebrationInstance(new ArrayList<>(pendingBadges));
         dialog.show(activity.getSupportFragmentManager(), AchievementDialogFragment.TAG);
 
-        // Đánh dấu đã chúc mừng để không bao giờ hiện lại
-        markAchievementsCelebrated(activity);
         return true;
     }
 }

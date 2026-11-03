@@ -86,20 +86,36 @@ public class PendingAchievementStore {
     }
 
     /**
+     * Đánh dấu danh sách các huy hiệu chỉ định đã được người dùng xem và xác nhận.
+     * Chuyển các mã này sang tập hợp celebrated và loại bỏ khỏi tập hợp pending.
+     * Các huy hiệu khác phát sinh trong hàng đợi pending sẽ được giữ nguyên vẹn.
+     */
+    public synchronized void markBadgesAsCelebrated(List<String> badgeCodes) {
+        if (badgeCodes == null || badgeCodes.isEmpty()) return;
+
+        Set<String> celebrated = new HashSet<>(prefs.getStringSet(KEY_CELEBRATED_CODES, Collections.emptySet()));
+        Set<String> currentPending = new LinkedHashSet<>(prefs.getStringSet(KEY_PENDING_CODES, Collections.emptySet()));
+
+        for (String code : badgeCodes) {
+            if (code != null) {
+                String cleanCode = code.trim();
+                celebrated.add(cleanCode);
+                currentPending.remove(cleanCode);
+            }
+        }
+
+        prefs.edit()
+                .putStringSet(KEY_CELEBRATED_CODES, celebrated)
+                .putStringSet(KEY_PENDING_CODES, currentPending)
+                .apply();
+    }
+
+    /**
      * Đánh dấu toàn bộ huy hiệu đang chờ đã được hiển thị chúc mừng.
      * Chuyển các mã này sang danh sách đã chúc mừng (celebrated) để vĩnh viễn không thông báo lại.
      */
     public synchronized void markAllAsCelebrated() {
-        Set<String> currentPending = prefs.getStringSet(KEY_PENDING_CODES, Collections.emptySet());
-        if (currentPending == null || currentPending.isEmpty()) return;
-
-        Set<String> celebrated = new HashSet<>(prefs.getStringSet(KEY_CELEBRATED_CODES, Collections.emptySet()));
-        celebrated.addAll(currentPending);
-
-        prefs.edit()
-                .putStringSet(KEY_CELEBRATED_CODES, celebrated)
-                .putStringSet(KEY_PENDING_CODES, new HashSet<>())
-                .apply();
+        markBadgesAsCelebrated(getPendingBadgeCodes());
     }
 
     /**

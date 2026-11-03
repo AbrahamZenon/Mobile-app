@@ -21,7 +21,11 @@ import com.mad.goaltracker.R;
 import com.mad.goaltracker.models.Badge;
 import com.mad.goaltracker.utils.BadgeIconHelper;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import java.util.ArrayList;
+import java.util.List;
+import com.mad.goaltracker.gamification.AchievementEventCoordinator;
 
 /**
  * DialogFragment hiển thị chúc mừng thành tích huy hiệu mới hoặc chi tiết huy hiệu.
@@ -39,6 +43,8 @@ public class AchievementDialogFragment extends DialogFragment {
 
     public static final int MODE_CELEBRATION = 1;
     public static final int MODE_DETAIL = 2;
+
+    private boolean isAcknowledged = false;
 
     /**
      * Tạo Dialog chúc mừng một hoặc nhiều huy hiệu vừa mở khóa.
@@ -95,6 +101,7 @@ public class AchievementDialogFragment extends DialogFragment {
         btnDialogDismiss.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                acknowledgeCelebration();
                 dismiss();
             }
         });
@@ -182,6 +189,37 @@ public class AchievementDialogFragment extends DialogFragment {
             }
 
             container.addView(row);
+        }
+    }
+
+    @Override
+    public void onDismiss(@NonNull DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if (isRemoving() || !isAdded()) {
+            acknowledgeCelebration();
+        }
+    }
+
+    private void acknowledgeCelebration() {
+        if (isAcknowledged) return;
+        isAcknowledged = true;
+        Context context = getContext();
+        Bundle args = getArguments();
+        if (context != null && args != null) {
+            int mode = args.getInt(ARG_MODE, MODE_CELEBRATION);
+            if (mode == MODE_CELEBRATION) {
+                @SuppressWarnings("unchecked")
+                ArrayList<Badge> badges = (ArrayList<Badge>) args.getSerializable(ARG_BADGES);
+                if (badges != null && !badges.isEmpty()) {
+                    List<String> codes = new ArrayList<>();
+                    for (Badge b : badges) {
+                        if (b != null && b.getCode() != null) {
+                            codes.add(b.getCode());
+                        }
+                    }
+                    AchievementEventCoordinator.markBadgesCelebrated(context, codes);
+                }
+            }
         }
     }
 }
