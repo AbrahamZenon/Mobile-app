@@ -73,6 +73,13 @@
             android:label="@string/title_gamification"
             android:parentActivityName=".activities.MainActivity" />
 
+        <!-- Màn hình cài đặt thông báo và quản lý quyền nhắc nhở (Prompt 7) -->
+        <activity
+            android:name=".activities.NotificationSettingsActivity"
+            android:exported="false"
+            android:label="@string/title_notification_settings"
+            android:parentActivityName=".activities.MainActivity" />
+
         <!-- BroadcastReceiver nhận alarm từ AlarmManager (Nội bộ, không export) -->
         <receiver
             android:name=".notification.ReminderReceiver"

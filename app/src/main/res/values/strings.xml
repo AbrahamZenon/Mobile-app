@@ -60,4 +60,38 @@
     <string name="badge_detail_status_label">Trạng thái:</string>
     <string name="badge_detail_time_label">Thời điểm đạt được:</string>
     <string name="unit_days">ngày</string>
+
+    <!-- Notification Settings Strings (Prompt 7) -->
+    <string name="title_notification_settings">Cài Đặt Nhắc Nhở</string>
+    <string name="section_daily_reminders">NHẮC NHỞ HẰNG NGÀY</string>
+    <string name="reminder_morning_title">Nhắc nhở buổi sáng</string>
+    <string name="reminder_morning_desc">Bắt đầu ngày mới và xem lại kế hoạch mục tiêu</string>
+    <string name="reminder_evening_title">Nhắc nhở buổi tối</string>
+    <string name="reminder_evening_desc">Tổng kết tiến độ công việc và ghi nhận nhật ký</string>
+    <string name="btn_change_time">Đổi giờ</string>
+    <string name="section_notification_permission">QUYỀN THÔNG BÁO</string>
+    <string name="permission_title">Thông báo hệ thống</string>
+    <string name="permission_status_label">Trạng thái:</string>
+    <string name="permission_status_granted">Đã cho phép</string>
+    <string name="permission_status_denied">Chưa cho phép</string>
+    <string name="permission_status_blocked">Thông báo đang bị tắt trong Cài đặt hệ thống</string>
+    <string name="permission_status_not_required">Không yêu cầu quyền runtime</string>
+    <string name="permission_desc">Cho phép GoalTracker gửi thông báo nhắc nhở hằng ngày đúng theo lịch bạn đã chọn.</string>
+    <string name="permission_denied_message">Bạn chưa cho phép GoalTracker gửi thông báo. Hãy cấp quyền trong Cài đặt để nhận lời nhắc.</string>
+    <string name="btn_request_permission">Cho phép thông báo</string>
+    <string name="btn_open_notification_settings">Mở cài đặt thông báo</string>
+    <string name="section_exact_alarm">ĐỘ CHÍNH XÁC GIỜ NHẮC</string>
+    <string name="exact_alarm_title">Báo giờ chính xác</string>
+    <string name="exact_alarm_status_granted">Đã cho phép nhắc đúng giờ</string>
+    <string name="exact_alarm_status_inexact">Đang sử dụng giờ nhắc linh hoạt</string>
+    <string name="exact_alarm_status_not_required">Không yêu cầu quyền bổ sung</string>
+    <string name="exact_alarm_desc">Quyền này giúp GoalTracker gửi lời nhắc gần với giờ bạn đã chọn hơn. Nếu không cấp, Android vẫn có thể gửi thông báo bằng chế độ giờ linh hoạt.</string>
+    <string name="exact_alarm_warning">Lưu ý: Thông báo có thể trễ vài phút do cơ chế tối ưu pin nếu hệ thống chưa cấp quyền chính xác.</string>
+    <string name="btn_request_exact_alarm">Cấp quyền nhắc đúng giờ</string>
+    <string name="msg_time_updated">Đã cập nhật giờ nhắc nhở thành %1$s</string>
+    <string name="msg_reminder_enabled">Đã bật %1$s</string>
+    <string name="msg_reminder_disabled">Đã tắt %1$s</string>
+    <string name="msg_error_db">Không thể lưu thay đổi vào cơ sở dữ liệu. Vui lòng thử lại.</string>
+    <string name="msg_reminder_not_found">Cấu hình nhắc nhở chưa khả dụng trong cơ sở dữ liệu.</string>
+    <string name="time_picker_title">Chọn giờ nhắc nhở</string>
 </resources>
