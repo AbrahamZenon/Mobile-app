@@ -22,4 +22,21 @@
     <string name="notification_evening_content">Bạn đã tiến gần hơn đến mục tiêu của mình như thế nào hôm nay?</string>
     <string name="notification_default_title">GoalTracker Nhắc Nhở</string>
     <string name="notification_default_content">Đừng quên theo dõi và cập nhật tiến độ mục tiêu của bạn nhé!</string>
+
+    <!-- Statistics Strings (Prompt 5) -->
+    <string name="title_statistics">Thống Kê</string>
+    <string name="section_overview">TỔNG QUAN TIẾN ĐỘ</string>
+    <string name="stat_total_goals">Tổng mục tiêu</string>
+    <string name="stat_completed_goals">Mục tiêu hoàn thành</string>
+    <string name="stat_overdue_goals">Mục tiêu quá hạn</string>
+    <string name="stat_total_tasks">Tổng nhiệm vụ</string>
+    <string name="stat_completed_tasks">Nhiệm vụ hoàn thành</string>
+    <string name="stat_average_progress">Tiến độ trung bình</string>
+    <string name="section_pie_chart">PHÂN BỐ MỤC TIÊU THEO DANH MỤC</string>
+    <string name="empty_pie_chart">Bạn chưa có mục tiêu nào để thống kê.</string>
+    <string name="section_bar_chart">NĂNG SUẤT 7 NGÀY GẦN NHẤT</string>
+    <string name="empty_bar_chart">Chưa có nhiệm vụ hoàn thành trong 7 ngày gần nhất.</string>
+    <string name="btn_refresh_statistics">Làm mới dữ liệu</string>
+    <string name="unit_goals">mục tiêu</string>
+    <string name="unit_tasks">nhiệm vụ</string>
 </resources>

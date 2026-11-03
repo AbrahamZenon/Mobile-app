@@ -59,6 +59,13 @@
             android:exported="false"
             android:parentActivityName=".activities.JournalActivity" />
 
+        <!-- Màn hình thống kê tiến độ, phân bố danh mục và năng suất 7 ngày (Prompt 5) -->
+        <activity
+            android:name=".activities.StatisticsActivity"
+            android:exported="false"
+            android:label="@string/title_statistics"
+            android:parentActivityName=".activities.MainActivity" />
+
         <!-- BroadcastReceiver nhận alarm từ AlarmManager (Nội bộ, không export) -->
         <receiver
             android:name=".notification.ReminderReceiver"
