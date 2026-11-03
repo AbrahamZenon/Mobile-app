@@ -66,6 +66,13 @@
             android:label="@string/title_statistics"
             android:parentActivityName=".activities.MainActivity" />
 
+        <!-- Màn hình thành tích, chuỗi hoạt động và danh sách huy hiệu (Prompt 6) -->
+        <activity
+            android:name=".activities.GamificationActivity"
+            android:exported="false"
+            android:label="@string/title_gamification"
+            android:parentActivityName=".activities.MainActivity" />
+
         <!-- BroadcastReceiver nhận alarm từ AlarmManager (Nội bộ, không export) -->
         <receiver
             android:name=".notification.ReminderReceiver"

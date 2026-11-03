@@ -21,4 +21,13 @@
     <color name="cat_study">#7209B7</color>
     <color name="cat_finance">#FFD166</color>
     <color name="cat_hobby">#F72585</color>
+
+    <!-- Gamification Colors (Prompt 6) -->
+    <color name="badge_gold">#FFB703</color>
+    <color name="badge_locked_bg">#F8F9FA</color>
+    <color name="badge_locked_text">#6C757D</color>
+    <color name="badge_unlocked_bg">#FFFDF0</color>
+    <color name="streak_fire_color">#FF6B35</color>
+    <color name="quote_bg">#EEF2FF</color>
+    <color name="quote_accent">#4F46E5</color>
 </resources>

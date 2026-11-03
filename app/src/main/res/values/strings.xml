@@ -39,4 +39,25 @@
     <string name="btn_refresh_statistics">Làm mới dữ liệu</string>
     <string name="unit_goals">mục tiêu</string>
     <string name="unit_tasks">nhiệm vụ</string>
+
+    <!-- Gamification Strings (Prompt 6) -->
+    <string name="title_gamification">Thành Tích</string>
+    <string name="section_streak">CHUỖI HOẠT ĐỘNG</string>
+    <string name="streak_current_label">Chuỗi hiện tại</string>
+    <string name="streak_record_label">Kỷ lục của bạn: %1$d ngày</string>
+    <string name="streak_empty_encouragement">Hãy hoàn thành một nhiệm vụ hoặc viết nhật ký hôm nay để bắt đầu chuỗi ngày của bạn!</string>
+    <string name="section_daily_quote">LỜI NHẮN HÔM NAY</string>
+    <string name="section_badges">HUY HIỆU CỦA BẠN</string>
+    <string name="badge_progress_summary">%1$d / %2$d huy hiệu đã mở khóa</string>
+    <string name="badge_status_unlocked">Đã mở khóa</string>
+    <string name="badge_status_locked">Chưa mở khóa</string>
+    <string name="badge_unlocked_at_label">Đạt được: %1$s</string>
+    <string name="dialog_achievement_title">CHÚC MỪNG THÀNH TÍCH MỚI!</string>
+    <string name="dialog_achievement_congrats">Bạn vừa mở khóa được huy hiệu mới. Hãy tiếp tục giữ vững phong độ nhé!</string>
+    <string name="btn_dialog_awesome">Tuyệt vời!</string>
+    <string name="btn_dialog_close">Đóng</string>
+    <string name="badge_detail_condition_label">Điều kiện mở khóa:</string>
+    <string name="badge_detail_status_label">Trạng thái:</string>
+    <string name="badge_detail_time_label">Thời điểm đạt được:</string>
+    <string name="unit_days">ngày</string>
 </resources>
