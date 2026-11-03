@@ -181,6 +181,9 @@ public class GoalDetailActivity extends AppCompatActivity implements TaskAdapter
         dbHelper.updateTaskCompletion(task.getId(), isCompleted, goal.getId());
         refreshGoalProgress();
         loadTasks();
+        if (isCompleted) {
+            com.mad.goaltracker.gamification.AchievementEventCoordinator.triggerEvaluation(GoalDetailActivity.this);
+        }
     }
 
     @Override

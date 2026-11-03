@@ -109,6 +109,7 @@ public class AddEditGoalActivity extends AppCompatActivity {
             long result = dbHelper.insertGoal(newGoal);
 
             if (result > 0) {
+                com.mad.goaltracker.gamification.AchievementEventCoordinator.triggerEvaluation(AddEditGoalActivity.this);
                 Toast.makeText(this, "Đã thêm mục tiêu thành công!", Toast.LENGTH_SHORT).show();
                 finish();
             } else {

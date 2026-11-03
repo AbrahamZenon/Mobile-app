@@ -14,10 +14,10 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="16dp"
+            android:background="@color/surface"
             android:gravity="center_vertical"
-            android:background="@color/surface">
+            android:orientation="horizontal"
+            android:padding="16dp">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -29,35 +29,254 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="GoalTracker 🎯"
+                    android:textColor="@color/primary"
                     android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/primary" />
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvGoalCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Đang quản lý 0 mục tiêu"
-                    android:textSize="13sp"
-                    android:textColor="@color/text_secondary" />
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp" />
             </LinearLayout>
+
+            <!-- Navigation Icon Buttons: Statistics, Gamification, Notifications, Security -->
+            <ImageButton
+                android:id="@+id/btnStatistics"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginEnd="2dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Thống kê"
+                android:src="@drawable/ic_bar_chart" />
+
+            <ImageButton
+                android:id="@+id/btnGamification"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginEnd="2dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Thành tích"
+                android:src="@drawable/ic_celebration"
+                app:tint="@color/badge_gold" />
+
+            <ImageButton
+                android:id="@+id/btnNotificationSettings"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginEnd="2dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Cài đặt nhắc nhở"
+                android:src="@drawable/ic_notification"
+                app:tint="@color/primary" />
 
             <ImageButton
                 android:id="@+id/btnSecuritySettings"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@android:drawable/ic_lock_lock"
-                android:contentDescription="Cài đặt mã PIN" />
+                android:contentDescription="Cài đặt mã PIN"
+                android:src="@android:drawable/ic_lock_lock" />
         </LinearLayout>
+
+        <!-- Gamification & Motivation Summary Card (Prompt 8) -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardDashboardGamification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="4dp"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardBackgroundColor="@color/surface"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <!-- Streak & Badge Quick Status Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <!-- Streak Info -->
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:contentDescription="Streak"
+                            android:src="@drawable/ic_streak_fire" />
+
+                        <TextView
+                            android:id="@+id/tvDashboardStreak"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:text="0 ngày liên tiếp"
+                            android:textColor="@color/streak_fire_color"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <!-- Badges Info -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:contentDescription="Huy hiệu"
+                            android:src="@drawable/ic_badge_default" />
+
+                        <TextView
+                            android:id="@+id/tvDashboardBadgeCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp"
+                            android:text="0 / 8 huy hiệu"
+                            android:textColor="@color/text_primary"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Daily Quote Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_time_badge"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="6dp">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:contentDescription="Danh ngôn"
+                        android:src="@drawable/ic_format_quote"
+                        app:tint="@color/quote_accent" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tvDashboardQuote"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="Mỗi bước tiến nhỏ hôm nay đều đưa bạn đến gần hơn với mục tiêu lớn ngày mai."
+                            android:textColor="@color/text_primary"
+                            android:textSize="12sp"
+                            android:textStyle="italic" />
+
+                        <TextView
+                            android:id="@+id/tvDashboardQuoteAuthor"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="— Danh ngôn tạo động lực"
+                            android:textColor="@color/text_secondary"
+                            android:textSize="11sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Navigation Quick Chips Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnNavStatistics"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="0dp"
+                        android:layout_height="36dp"
+                        android:layout_weight="1"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:padding="0dp"
+                        android:text="@string/nav_statistics"
+                        android:textColor="@color/primary"
+                        android:textSize="12sp"
+                        app:icon="@drawable/ic_bar_chart"
+                        app:iconGravity="textStart"
+                        app:iconPadding="4dp"
+                        app:iconSize="14dp"
+                        app:iconTint="@color/primary" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnNavGamification"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="0dp"
+                        android:layout_height="36dp"
+                        android:layout_weight="1"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:padding="0dp"
+                        android:text="@string/nav_gamification"
+                        android:textColor="@color/badge_gold"
+                        android:textSize="12sp"
+                        app:icon="@drawable/ic_celebration"
+                        app:iconGravity="textStart"
+                        app:iconPadding="4dp"
+                        app:iconSize="14dp"
+                        app:iconTint="@color/badge_gold" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnNavNotifications"
+                        style="@style/Widget.MaterialComponents.Button.TextButton"
+                        android:layout_width="0dp"
+                        android:layout_height="36dp"
+                        android:layout_weight="1"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:padding="0dp"
+                        android:text="@string/nav_notification_settings"
+                        android:textColor="@color/secondary"
+                        android:textSize="12sp"
+                        app:icon="@drawable/ic_notification"
+                        app:iconGravity="textStart"
+                        app:iconPadding="4dp"
+                        app:iconSize="14dp"
+                        app:iconTint="@color/secondary" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
         <!-- Category Horizontal Filter Tabs -->
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="none"
             android:paddingHorizontal="12dp"
-            android:paddingVertical="8dp">
+            android:paddingVertical="6dp"
+            android:scrollbars="none">
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chipGroupCategory"
@@ -116,10 +335,10 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
+            android:lineSpacingExtra="4dp"
             android:text="Chưa có mục tiêu nào trong danh mục này.\nBấm dấu (+) để thêm mục tiêu mới!"
             android:textColor="@color/text_secondary"
             android:textSize="15sp"
-            android:lineSpacingExtra="4dp"
             android:visibility="gone" />
 
         <!-- Goals RecyclerView -->

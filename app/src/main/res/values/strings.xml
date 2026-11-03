@@ -94,4 +94,11 @@
     <string name="msg_error_db">Không thể lưu thay đổi vào cơ sở dữ liệu. Vui lòng thử lại.</string>
     <string name="msg_reminder_not_found">Cấu hình nhắc nhở chưa khả dụng trong cơ sở dữ liệu.</string>
     <string name="time_picker_title">Chọn giờ nhắc nhở</string>
+    <!-- Dashboard Integration Strings (Prompt 8) -->
+    <string name="nav_statistics">Thống kê</string>
+    <string name="nav_gamification">Thành tích</string>
+    <string name="nav_notification_settings">Nhắc nhở</string>
+    <string name="dashboard_streak_format">%1$d ngày liên tiếp</string>
+    <string name="dashboard_badge_format">%1$d / %2$d huy hiệu</string>
+    <string name="dashboard_view_details">Xem chi tiết →</string>
 </resources>

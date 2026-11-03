@@ -71,6 +71,7 @@ public class AddJournalActivity extends AppCompatActivity {
             long result = dbHelper.insertJournal(journal);
 
             if (result > 0) {
+                com.mad.goaltracker.gamification.AchievementEventCoordinator.triggerEvaluation(AddJournalActivity.this);
                 Toast.makeText(this, "Đã lưu nhật ký hành trình!", Toast.LENGTH_SHORT).show();
                 finish();
             } else {

@@ -138,13 +138,20 @@ public class GamificationActivity extends AppCompatActivity implements BadgeAdap
             @Override
             public void run() {
                 try {
-                    // 1. Đánh giá mở khóa huy hiệu nếu được yêu cầu
-                    final List<Badge> newlyUnlocked;
-                    if (shouldEvaluateBadges) {
-                        newlyUnlocked = gamificationManager.evaluateAndUnlockBadges();
-                    } else {
-                        newlyUnlocked = null;
+                    // 1. Kiểm tra huy hiệu đang chờ chúc mừng từ PendingAchievementStore hoặc đánh giá mới
+                    List<Badge> badgesToCelebrate = com.mad.goaltracker.gamification.AchievementEventCoordinator.getPendingBadgesToCelebrate(GamificationActivity.this, dbHelper);
+                    if (badgesToCelebrate == null) {
+                        badgesToCelebrate = new ArrayList<>();
                     }
+
+                    if (badgesToCelebrate.isEmpty() && shouldEvaluateBadges) {
+                        List<Badge> newlyEvaluated = gamificationManager.evaluateAndUnlockBadges();
+                        if (newlyEvaluated != null && !newlyEvaluated.isEmpty()) {
+                            badgesToCelebrate = newlyEvaluated;
+                        }
+                    }
+
+                    final List<Badge> newlyUnlocked = badgesToCelebrate;
 
                     // 2. Tính toán chuỗi hoạt động
                     final StreakSummary streakSummary = gamificationManager.getStreakSummary();
@@ -167,6 +174,7 @@ public class GamificationActivity extends AppCompatActivity implements BadgeAdap
                             // Nếu có huy hiệu vừa mở khóa thành công, hiển thị Dialog chúc mừng
                             if (newlyUnlocked != null && !newlyUnlocked.isEmpty()) {
                                 showAchievementDialog(newlyUnlocked);
+                                com.mad.goaltracker.gamification.AchievementEventCoordinator.markAchievementsCelebrated(GamificationActivity.this);
                             }
 
                             hasEvaluatedBadges = true;
