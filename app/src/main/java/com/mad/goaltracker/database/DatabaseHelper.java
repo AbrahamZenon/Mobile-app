@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "goal_tracker.db";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     // Pattern kiểm tra định dạng thời gian HH:mm (00:00 -> 23:59)
     private static final Pattern TIME_PATTERN = Pattern.compile("^([01][0-9]|2[0-3]):[0-5][0-9]$");
@@ -164,6 +164,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_REMINDER_IS_ENABLED + " INTEGER NOT NULL DEFAULT 1)";
         db.execSQL(createRemindersTable);
 
+        // 7. Tạo unique index cho reminders.type (v3)
+        db.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS idx_reminders_type_unique ON reminders(type);");
+
         // Seed dữ liệu mặc định cho Badges và Reminders
         seedDefaultBadges(db);
         seedDefaultReminders(db);
@@ -198,6 +201,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             // 4. Seed dữ liệu mặc định cho Badges và Reminders
             seedDefaultBadges(db);
             seedDefaultReminders(db);
+        }
+
+        if (oldVersion < 3) {
+            // Kiểm tra bản ghi trùng type trong reminders trước khi tạo unique index
+            Cursor dupCheck = db.rawQuery(
+                    "SELECT type, COUNT(*) as cnt FROM reminders GROUP BY type HAVING COUNT(*) > 1",
+                    null
+            );
+            boolean hasDuplicate = (dupCheck != null && dupCheck.moveToFirst());
+            if (dupCheck != null) dupCheck.close();
+
+            if (hasDuplicate) {
+                // Không tự xóa dữ liệu người dùng — throw để caller biết
+                throw new android.database.SQLException(
+                        "Migration v2→v3 thất bại: Tồn tại bản ghi reminders trùng type. " +
+                        "Cần xử lý thủ công trước khi tạo unique index."
+                );
+            }
+
+            db.execSQL("CREATE UNIQUE INDEX IF NOT EXISTS idx_reminders_type_unique ON reminders(type);");
         }
     }
 
@@ -364,30 +387,38 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void updateTaskCompletion(int taskId, boolean isCompleted, int goalId) {
         SQLiteDatabase db = this.getWritableDatabase();
+
+        // Đọc trạng thái cũ trước khi quyết định ghi timestamp
+        Cursor cursor = db.query(
+                TABLE_TASKS,
+                new String[]{COLUMN_TASK_IS_COMPLETED, COLUMN_TASK_COMPLETED_AT},
+                COLUMN_TASK_ID + " = ?",
+                new String[]{String.valueOf(taskId)},
+                null, null, null
+        );
+
+        if (cursor == null || !cursor.moveToFirst()) {
+            if (cursor != null) cursor.close();
+            db.close();
+            return; // Task không tồn tại
+        }
+
+        int oldIsCompleted = cursor.getInt(cursor.getColumnIndexOrThrow(COLUMN_TASK_IS_COMPLETED));
+        cursor.close();
+
         ContentValues values = new ContentValues();
         values.put(COLUMN_TASK_IS_COMPLETED, isCompleted ? 1 : 0);
 
         if (isCompleted) {
-            // Kiểm tra xem task đã có completed_at từ trước hay chưa
-            Cursor cursor = db.query(TABLE_TASKS, new String[]{COLUMN_TASK_COMPLETED_AT},
-                    COLUMN_TASK_ID + " = ?", new String[]{String.valueOf(taskId)}, null, null, null);
-            String existingCompletedAt = null;
-            if (cursor != null) {
-                if (cursor.moveToFirst()) {
-                    int colIdx = cursor.getColumnIndex(COLUMN_TASK_COMPLETED_AT);
-                    if (colIdx != -1) {
-                        existingCompletedAt = cursor.getString(colIdx);
-                    }
-                }
-                cursor.close();
+            if (oldIsCompleted == 0) {
+                // Transition 0→1: Ghi timestamp hiện tại
+                String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(new Date());
+                values.put(COLUMN_TASK_COMPLETED_AT, now);
             }
-
-            if (existingCompletedAt == null || existingCompletedAt.isEmpty()) {
-                String currentDateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US).format(new Date());
-                values.put(COLUMN_TASK_COMPLETED_AT, currentDateTime);
-            }
+            // Nếu oldIsCompleted == 1 (1→1): KHÔNG đưa completed_at vào ContentValues
+            // → SQLite giữ nguyên giá trị cũ, kể cả NULL (đúng cho legacy task từ DB v1)
         } else {
-            // Khi bỏ hoàn thành, đặt completed_at = NULL
+            // Uncomplete: completed_at = NULL
             values.putNull(COLUMN_TASK_COMPLETED_AT);
         }
 
