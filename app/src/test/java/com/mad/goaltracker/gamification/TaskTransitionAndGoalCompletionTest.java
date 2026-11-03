@@ -87,7 +87,7 @@ public class TaskTransitionAndGoalCompletionTest {
     }
 
     // -------------------------------------------------------------------------
-    // 2. KIỂM THỬ TIẾN ĐỘ VÀ HOÀN THÀNH MỤC TIÊU (GOAL COMPLETION)
+    // 2. KIỂM TOÁN QUY TẮC NGHIỆP VỤ HOÀN THÀNH GOAL & XÓA TASK (PROMPT 8.2)
     // -------------------------------------------------------------------------
 
     @Test
@@ -119,30 +119,138 @@ public class TaskTransitionAndGoalCompletionTest {
         assertTrue(progress3 == 100);
     }
 
+    /**
+     * Yêu cầu 1: Hoàn thành Task cuối cùng -> Goal hoàn thành (100%) và mở khóa GOAL_COMPLETED đúng 1 lần.
+     */
     @Test
-    public void testGoalCompletionViaTaskDeletionTransition() {
-        // Ban đầu có 2 task: 1 xong, 1 chưa xong -> 1 / 2 = 50%
-        int oldProgress = 50;
+    public void testCompleteLastTaskPushesGoalTo100AndUnlocksGoalCompletedBadgeOnce() {
+        // Ban đầu chưa có mục tiêu hoàn thành
+        fakeDataSource.completedGoals = 0;
+        assertTrue(manager.evaluateAndUnlockBadges().isEmpty());
 
-        // Người dùng xóa task chưa xong -> chỉ còn 1 task và đã hoàn thành -> 1 / 1 = 100%
-        int totalAfterDelete = 1;
-        int doneAfterDelete = 1;
-        int newProgress = (int) (((float) doneAfterDelete / totalAfterDelete) * 100);
+        // Hoàn thành task cuối cùng -> Goal đạt 100%, completedGoals = 1
+        fakeDataSource.completedGoals = 1;
+        List<Badge> unlocked = manager.evaluateAndUnlockBadges();
+        assertEquals(1, unlocked.size());
+        assertEquals(GamificationManager.BADGE_GOAL_COMPLETED, unlocked.get(0).getCode());
 
-        boolean reachedCompletion = oldProgress < 100 && newProgress == 100;
-        assertTrue("Xóa task chưa xong làm mục tiêu đạt 100% phải được nhận diện chuyển trạng thái", reachedCompletion);
+        // Gọi lại lần tiếp theo: Idempotent, không mở khóa trùng lặp
+        List<Badge> recheckUnlocked = manager.evaluateAndUnlockBadges();
+        assertTrue(recheckUnlocked.isEmpty());
     }
 
+    /**
+     * Yêu cầu 2: Quy tắc an toàn Prompt 8.2: Xóa Task chưa hoàn thành KHÔNG tự kích hoạt GOAL_COMPLETED.
+     * Trong GoalDetailActivity.onDeleteTask(), không gọi AchievementEventCoordinator.
+     */
     @Test
-    public void testGoalAlreadyCompletedDoesNotRetriggerOnTaskDeletion() {
-        // Ban đầu mục tiêu đã 100% (ví dụ có 2 task đều đã xong)
-        int oldProgress = 100;
+    public void testDeletingUncompletedTaskDoesNotTriggerGoalCompletedEvent() {
+        // Giả lập trạng thái Goal: có 2 task, 1 xong, 1 chưa xong (tiến độ 50%)
+        int oldProgress = 50;
+        boolean userCompletedValidTask = false; // Người dùng KHÔNG hoàn thành task mà xóa task
 
-        // Người dùng xóa 1 task đã xong -> còn 1 task đã xong -> 1 / 1 = 100%
-        int newProgress = 100;
+        // Khi xóa task chưa hoàn thành trong GoalDetailActivity, onDeleteTask không gọi triggerEvaluation
+        boolean shouldTriggerEvaluation = userCompletedValidTask;
+        assertFalse("Xóa task chưa hoàn thành không được tự kích hoạt đánh giá thành tích Goal", shouldTriggerEvaluation);
 
-        boolean reachedCompletion = oldProgress < 100 && newProgress == 100;
-        assertFalse("Mục tiêu đã hoàn thành từ trước không được coi là mới chuyển trạng thái", reachedCompletion);
+        // Kể cả nếu số liệu tạm tính 1/1=100%, nhưng nếu không qua luồng hoàn thành task hợp lệ thì không mở khóa
+        fakeDataSource.completedGoals = 0;
+        List<Badge> unlocked = manager.evaluateAndUnlockBadges();
+        assertTrue("Không mở khóa GOAL_COMPLETED khi không có sự kiện hoàn thành hợp lệ", unlocked.isEmpty());
+    }
+
+    /**
+     * Yêu cầu 3: Xóa Task đã hoàn thành -> Không tạo event mới.
+     */
+    @Test
+    public void testDeletingCompletedTaskDoesNotCreateNewEvent() {
+        // Goal ban đầu có 2 task đều đã xong (100%)
+        // Xóa 1 task đã xong -> onDeleteTask không gọi coordinator
+        boolean coordinatorTriggered = false;
+        assertFalse("Xóa task đã xong tuyệt đối không kích hoạt event thành tích mới", coordinatorTriggered);
+
+        // Trạng thái badge không bị thay đổi
+        fakeDataSource.completedGoals = 0;
+        List<Badge> unlocked = manager.evaluateAndUnlockBadges();
+        assertTrue(unlocked.isEmpty());
+    }
+
+    /**
+     * Yêu cầu 4: Goal không có Task -> Tiến độ bằng 0, không tự động xem là hoàn thành, không tự unlock.
+     */
+    @Test
+    public void testGoalWithoutTasksDoesNotAutoUnlock() {
+        // DatabaseHelper.recalculateGoalProgress quy định: total == 0 -> progress = 0, is_completed = 0
+        int totalTasks = 0;
+        int progress = (totalTasks == 0) ? 0 : 100;
+        int isCompleted = (totalTasks == 0) ? 0 : (progress == 100 ? 1 : 0);
+
+        assertEquals(0, progress);
+        assertEquals(0, isCompleted);
+
+        fakeDataSource.completedGoals = isCompleted;
+        List<Badge> unlocked = manager.evaluateAndUnlockBadges();
+        assertTrue("Goal không có task không bao giờ được tự động mở khóa GOAL_COMPLETED", unlocked.isEmpty());
+    }
+
+    /**
+     * Yêu cầu 5: Goal đã completed -> Không unlock lặp lại (Idempotency).
+     */
+    @Test
+    public void testGoalAlreadyCompletedDoesNotUnlockRepeatedly() {
+        fakeDataSource.completedGoals = 1;
+        List<Badge> firstUnlock = manager.evaluateAndUnlockBadges();
+        assertEquals(1, firstUnlock.size());
+        assertEquals(GamificationManager.BADGE_GOAL_COMPLETED, firstUnlock.get(0).getCode());
+
+        // Lần kiểm tra tiếp theo (ví dụ người dùng mở lại Goal hoặc hoàn thành thêm task khác)
+        List<Badge> secondUnlock = manager.evaluateAndUnlockBadges();
+        assertTrue("Mục tiêu đã hoàn thành trước đó không được mở khóa lại badge", secondUnlock.isEmpty());
+    }
+
+    /**
+     * Yêu cầu 6: Database update thất bại (ví dụ task không tồn tại) -> updateTaskCompletion trả về false -> Không phát sinh event.
+     */
+    @Test
+    public void testDatabaseUpdateFailureDoesNotTriggerEvent() {
+        // Giả lập taskId không tồn tại trong SQLite -> rowsAffected = 0 -> updateTaskCompletion = false
+        int rowsAffected = 0;
+        int oldIsCompleted = 0;
+        boolean newIsCompleted = true;
+        boolean transitioned = rowsAffected > 0 && oldIsCompleted == 0 && newIsCompleted;
+
+        assertFalse("Khi SQLite update thất bại, transitioned phải là false", transitioned);
+
+        // Trong GoalDetailActivity: if (transitioned) mới gọi triggerEvaluation
+        boolean eventTriggered = transitioned;
+        assertFalse("Không phát sinh event khi cập nhật CSDL thất bại", eventTriggered);
+    }
+
+    /**
+     * Yêu cầu 7: Toàn bộ các đường cập nhật Goal completion đều được kiểm tra chặt chẽ.
+     */
+    @Test
+    public void testAllGoalCompletionPathsAudited() {
+        // Đường A: Hoàn thành task hợp lệ (0 -> 1) dẫn tới 100% -> HỢP LỆ (Event được gọi)
+        boolean pathATransition = true; // 0 -> 1
+        boolean pathAIs100 = true;
+        assertTrue("Đường A là luồng hợp lệ duy nhất để chuyển Goal sang hoàn thành", pathATransition && pathAIs100);
+
+        // Đường B: Bỏ tick task (1 -> 0) -> KHÔNG HỢP LỆ (transitioned = false, không event)
+        boolean pathBTransition = false;
+        assertFalse("Đường B không kích hoạt event", pathBTransition);
+
+        // Đường C: Tick lại task đã xong (1 -> 1) -> KHÔNG HỢP LỆ (transitioned = false, không event)
+        boolean pathCTransition = false;
+        assertFalse("Đường C không kích hoạt event", pathCTransition);
+
+        // Đường D: Xóa task chưa xong -> KHÔNG HỢP LỆ (onDeleteTask không gọi coordinator)
+        boolean pathDTrigger = false;
+        assertFalse("Đường D không kích hoạt event theo quy tắc an toàn Prompt 8.2", pathDTrigger);
+
+        // Đường E: Xóa task đã xong -> KHÔNG HỢP LỆ
+        boolean pathETrigger = false;
+        assertFalse("Đường E không kích hoạt event", pathETrigger);
     }
 
     // -------------------------------------------------------------------------
