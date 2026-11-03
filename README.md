@@ -5,7 +5,7 @@
 
 ---
 
-##  MỤC LỤC
+## 📌 MỤC LỤC
 1. [Giới Thiệu Dự Án](#-giới-thiệu-dự-án)
 2. [Thông Tin Thành Viên & Bảng Phân Công Công Việc](#-thông-tin-thành-viên--bảng-phân-công-công-việc)
 3. [Kế Hoạch Thực Hiện Chi Tiết (Project Roadmap)](#-kế-hoạch-thực-hiện-chi-tiết-project-roadmap)
@@ -55,7 +55,7 @@ Kế hoạch được chia làm **6 giai đoạn (Sprints)**, đảm bảo tiế
 
 #### 🔹 Tuần 2: Thiết Kế UI/UX & Khởi Tạo Dự Án (Project Setup)
 - [ ] Thiết kế Wireframe & Prototype giao diện chuẩn trên Figma (Dark/Light mode, bảng màu tạo cảm hứng).
-- [ ] Thống nhất công nghệ phát triển (Khuyên dùng: **Flutter** hoặc **React Native** hoặc **Android Kotlin**).
+- [ ] Thống nhất công nghệ phát triển (Android Studio, Java)
 - [ ] Khởi tạo Git repository, cấu hình nhánh `main`, `develop`, file `.gitignore`.
 - [ ] Dựng khung kiến trúc mã nguồn (Clean Architecture / MVVM), cấu hình State Management và Local Database.
 
@@ -95,7 +95,7 @@ Kế hoạch được chia làm **6 giai đoạn (Sprints)**, đảm bảo tiế
 
 ---
 
-##  4. PHÂN RÃ CHỨC NĂNG BÁM SÁT YÊU CẦU ĐỀ TÀI
+## 🔍 4. PHÂN RÃ CHỨC NĂNG BÁM SÁT YÊU CẦU ĐỀ TÀI
 
 | Nhóm chức năng (Theo Đề tài 15) | Mô tả chi tiết | Thành viên phụ trách chính |
 |:---|:---|:---:|
@@ -197,5 +197,3 @@ Nội dung báo cáo chi tiết được chuẩn bị sẵn trong thư mục `do
 - **Trang bìa:** Tên đề tài, bảng phân công nhiệm vụ và ước tính % đóng góp.
 - **Phần 1 - Công việc chung:** Lý do lựa chọn, so sánh thị trường, đặc tả chức năng/phi chức năng, Use Case tổng quát, kiến trúc, sơ đồ CSDL, điểm mới & khó.
 - **Phần 2 - Kết quả từng thành viên:** Luồng thực hiện (Activity Diagram), thiết kế màn hình, giải pháp kỹ thuật cụ thể và hướng phát triển tương lai cho từng module.
-
----
