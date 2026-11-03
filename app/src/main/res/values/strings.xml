@@ -12,4 +12,14 @@
     <string name="filter_study">Học tập</string>
     <string name="filter_finance">Tài chính</string>
     <string name="filter_hobby">Sở thích</string>
+
+    <!-- Notification Strings (Prompt 4) -->
+    <string name="notification_channel_name">Nhắc nhở GoalTracker</string>
+    <string name="notification_channel_desc">Thông báo nhắc nhở mục tiêu và thói quen hằng ngày.</string>
+    <string name="notification_morning_title">Chào buổi sáng!</string>
+    <string name="notification_morning_content">Hãy bắt đầu ngày mới bằng một bước tiến nhỏ cho mục tiêu của bạn.</string>
+    <string name="notification_evening_title">Đã đến lúc nhìn lại hôm nay!</string>
+    <string name="notification_evening_content">Bạn đã tiến gần hơn đến mục tiêu của mình như thế nào hôm nay?</string>
+    <string name="notification_default_title">GoalTracker Nhắc Nhở</string>
+    <string name="notification_default_content">Đừng quên theo dõi và cập nhật tiến độ mục tiêu của bạn nhé!</string>
 </resources>

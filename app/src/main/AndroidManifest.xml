@@ -2,7 +2,17 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.mad.goaltracker">
 
+    <!-- Quyền phục hồi lịch nhắc nhở sau khi thiết bị khởi động lại -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+    <!-- Quyền gửi thông báo trên Android 13+ (API 33) -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
+    <!-- Quyền lập lịch exact alarm trên Android 12+ (API 31) -->
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+
     <application
+        android:name=".GoalTrackerApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -48,6 +58,24 @@
             android:name=".activities.AddJournalActivity"
             android:exported="false"
             android:parentActivityName=".activities.JournalActivity" />
+
+        <!-- BroadcastReceiver nhận alarm từ AlarmManager (Nội bộ, không export) -->
+        <receiver
+            android:name=".notification.ReminderReceiver"
+            android:exported="false" />
+
+        <!-- BroadcastReceiver khôi phục lịch khi Boot, đổi giờ, đổi timezone hoặc cấp quyền exact alarm -->
+        <receiver
+            android:name=".notification.BootRescheduleReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.TIME_SET" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.app.action.SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED" />
+            </intent-filter>
+        </receiver>
 
     </application>
 
