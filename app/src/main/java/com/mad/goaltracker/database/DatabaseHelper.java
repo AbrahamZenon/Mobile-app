@@ -704,6 +704,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
+    public int getTotalJournalsCount() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM " + TABLE_JOURNALS, null);
+        int count = 0;
+        if (cursor != null) {
+            if (cursor.moveToFirst()) count = cursor.getInt(0);
+            cursor.close();
+        }
+        db.close();
+        return count;
+    }
+
     public float getOverallAverageProgress() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT AVG(" + COLUMN_GOAL_PROGRESS + ") FROM " + TABLE_GOALS, null);
