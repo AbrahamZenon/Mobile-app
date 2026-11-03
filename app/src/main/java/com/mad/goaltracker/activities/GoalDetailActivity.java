@@ -178,9 +178,12 @@ public class GoalDetailActivity extends AppCompatActivity implements TaskAdapter
 
     @Override
     public void onStatusChanged(Task task, boolean isCompleted) {
-        dbHelper.updateTaskCompletion(task.getId(), isCompleted, goal.getId());
+        boolean transitioned = dbHelper.updateTaskCompletion(task.getId(), isCompleted, goal.getId());
         refreshGoalProgress();
         loadTasks();
+        if (transitioned) {
+            com.mad.goaltracker.gamification.AchievementEventCoordinator.triggerEvaluation(GoalDetailActivity.this);
+        }
     }
 
     @Override

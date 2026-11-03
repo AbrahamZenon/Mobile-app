@@ -12,4 +12,93 @@
     <string name="filter_study">Học tập</string>
     <string name="filter_finance">Tài chính</string>
     <string name="filter_hobby">Sở thích</string>
+
+    <!-- Notification Strings (Prompt 4) -->
+    <string name="notification_channel_name">Nhắc nhở GoalTracker</string>
+    <string name="notification_channel_desc">Thông báo nhắc nhở mục tiêu và thói quen hằng ngày.</string>
+    <string name="notification_morning_title">Chào buổi sáng!</string>
+    <string name="notification_morning_content">Hãy bắt đầu ngày mới bằng một bước tiến nhỏ cho mục tiêu của bạn.</string>
+    <string name="notification_evening_title">Đã đến lúc nhìn lại hôm nay!</string>
+    <string name="notification_evening_content">Bạn đã tiến gần hơn đến mục tiêu của mình như thế nào hôm nay?</string>
+    <string name="notification_default_title">GoalTracker Nhắc Nhở</string>
+    <string name="notification_default_content">Đừng quên theo dõi và cập nhật tiến độ mục tiêu của bạn nhé!</string>
+
+    <!-- Statistics Strings (Prompt 5) -->
+    <string name="title_statistics">Thống Kê</string>
+    <string name="section_overview">TỔNG QUAN TIẾN ĐỘ</string>
+    <string name="stat_total_goals">Tổng mục tiêu</string>
+    <string name="stat_completed_goals">Mục tiêu hoàn thành</string>
+    <string name="stat_overdue_goals">Mục tiêu quá hạn</string>
+    <string name="stat_total_tasks">Tổng nhiệm vụ</string>
+    <string name="stat_completed_tasks">Nhiệm vụ hoàn thành</string>
+    <string name="stat_average_progress">Tiến độ trung bình</string>
+    <string name="section_pie_chart">PHÂN BỐ MỤC TIÊU THEO DANH MỤC</string>
+    <string name="empty_pie_chart">Bạn chưa có mục tiêu nào để thống kê.</string>
+    <string name="section_bar_chart">NĂNG SUẤT 7 NGÀY GẦN NHẤT</string>
+    <string name="empty_bar_chart">Chưa có nhiệm vụ hoàn thành trong 7 ngày gần nhất.</string>
+    <string name="btn_refresh_statistics">Làm mới dữ liệu</string>
+    <string name="unit_goals">mục tiêu</string>
+    <string name="unit_tasks">nhiệm vụ</string>
+
+    <!-- Gamification Strings (Prompt 6) -->
+    <string name="title_gamification">Thành Tích</string>
+    <string name="section_streak">CHUỖI HOẠT ĐỘNG</string>
+    <string name="streak_current_label">Chuỗi hiện tại</string>
+    <string name="streak_record_label">Kỷ lục của bạn: %1$d ngày</string>
+    <string name="streak_empty_encouragement">Hãy hoàn thành một nhiệm vụ hoặc viết nhật ký hôm nay để bắt đầu chuỗi ngày của bạn!</string>
+    <string name="section_daily_quote">LỜI NHẮN HÔM NAY</string>
+    <string name="section_badges">HUY HIỆU CỦA BẠN</string>
+    <string name="badge_progress_summary">%1$d / %2$d huy hiệu đã mở khóa</string>
+    <string name="badge_status_unlocked">Đã mở khóa</string>
+    <string name="badge_status_locked">Chưa mở khóa</string>
+    <string name="badge_unlocked_at_label">Đạt được: %1$s</string>
+    <string name="dialog_achievement_title">CHÚC MỪNG THÀNH TÍCH MỚI!</string>
+    <string name="dialog_achievement_congrats">Bạn vừa mở khóa được huy hiệu mới. Hãy tiếp tục giữ vững phong độ nhé!</string>
+    <string name="btn_dialog_awesome">Tuyệt vời!</string>
+    <string name="btn_dialog_close">Đóng</string>
+    <string name="badge_detail_condition_label">Điều kiện mở khóa:</string>
+    <string name="badge_detail_status_label">Trạng thái:</string>
+    <string name="badge_detail_time_label">Thời điểm đạt được:</string>
+    <string name="unit_days">ngày</string>
+
+    <!-- Notification Settings Strings (Prompt 7) -->
+    <string name="title_notification_settings">Cài Đặt Nhắc Nhở</string>
+    <string name="section_daily_reminders">NHẮC NHỞ HẰNG NGÀY</string>
+    <string name="reminder_morning_title">Nhắc nhở buổi sáng</string>
+    <string name="reminder_morning_desc">Bắt đầu ngày mới và xem lại kế hoạch mục tiêu</string>
+    <string name="reminder_evening_title">Nhắc nhở buổi tối</string>
+    <string name="reminder_evening_desc">Tổng kết tiến độ công việc và ghi nhận nhật ký</string>
+    <string name="btn_change_time">Đổi giờ</string>
+    <string name="section_notification_permission">QUYỀN THÔNG BÁO</string>
+    <string name="permission_title">Thông báo hệ thống</string>
+    <string name="permission_status_label">Trạng thái:</string>
+    <string name="permission_status_granted">Đã cho phép</string>
+    <string name="permission_status_denied">Chưa cho phép</string>
+    <string name="permission_status_blocked">Thông báo đang bị tắt trong Cài đặt hệ thống</string>
+    <string name="permission_status_not_required">Không yêu cầu quyền runtime</string>
+    <string name="permission_desc">Cho phép GoalTracker gửi thông báo nhắc nhở hằng ngày đúng theo lịch bạn đã chọn.</string>
+    <string name="permission_denied_message">Bạn chưa cho phép GoalTracker gửi thông báo. Hãy cấp quyền trong Cài đặt để nhận lời nhắc.</string>
+    <string name="btn_request_permission">Cho phép thông báo</string>
+    <string name="btn_open_notification_settings">Mở cài đặt thông báo</string>
+    <string name="section_exact_alarm">ĐỘ CHÍNH XÁC GIỜ NHẮC</string>
+    <string name="exact_alarm_title">Báo giờ chính xác</string>
+    <string name="exact_alarm_status_granted">Đã cho phép nhắc đúng giờ</string>
+    <string name="exact_alarm_status_inexact">Đang sử dụng giờ nhắc linh hoạt</string>
+    <string name="exact_alarm_status_not_required">Không yêu cầu quyền bổ sung</string>
+    <string name="exact_alarm_desc">Quyền này giúp GoalTracker gửi lời nhắc gần với giờ bạn đã chọn hơn. Nếu không cấp, Android vẫn có thể gửi thông báo bằng chế độ giờ linh hoạt.</string>
+    <string name="exact_alarm_warning">Lưu ý: Thông báo có thể trễ vài phút do cơ chế tối ưu pin nếu hệ thống chưa cấp quyền chính xác.</string>
+    <string name="btn_request_exact_alarm">Cấp quyền nhắc đúng giờ</string>
+    <string name="msg_time_updated">Đã cập nhật giờ nhắc nhở thành %1$s</string>
+    <string name="msg_reminder_enabled">Đã bật %1$s</string>
+    <string name="msg_reminder_disabled">Đã tắt %1$s</string>
+    <string name="msg_error_db">Không thể lưu thay đổi vào cơ sở dữ liệu. Vui lòng thử lại.</string>
+    <string name="msg_reminder_not_found">Cấu hình nhắc nhở chưa khả dụng trong cơ sở dữ liệu.</string>
+    <string name="time_picker_title">Chọn giờ nhắc nhở</string>
+    <!-- Dashboard Integration Strings (Prompt 8) -->
+    <string name="nav_statistics">Thống kê</string>
+    <string name="nav_gamification">Thành tích</string>
+    <string name="nav_notification_settings">Nhắc nhở</string>
+    <string name="dashboard_streak_format">%1$d ngày liên tiếp</string>
+    <string name="dashboard_badge_format">%1$d / %2$d huy hiệu</string>
+    <string name="dashboard_view_details">Xem chi tiết →</string>
 </resources>
