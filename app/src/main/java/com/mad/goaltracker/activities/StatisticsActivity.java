@@ -72,14 +72,14 @@ public class StatisticsActivity extends AppCompatActivity {
     private BarChart barChartWeekly;
     private TextView tvEmptyBarChart;
 
-    // Bảng màu 5 danh mục chuẩn khớp với colors.xml
+    // Bảng màu 5 danh mục theo hệ màu Duolingo
     private static final Map<String, Integer> CATEGORY_COLORS = new LinkedHashMap<>();
     static {
-        CATEGORY_COLORS.put("Sức khỏe", Color.parseColor("#06D6A0"));
-        CATEGORY_COLORS.put("Công việc", Color.parseColor("#118AB2"));
-        CATEGORY_COLORS.put("Học tập", Color.parseColor("#7209B7"));
-        CATEGORY_COLORS.put("Tài chính", Color.parseColor("#FFD166"));
-        CATEGORY_COLORS.put("Sở thích", Color.parseColor("#F72585"));
+        CATEGORY_COLORS.put("Sức khỏe", Color.parseColor("#58CC02"));
+        CATEGORY_COLORS.put("Công việc", Color.parseColor("#1CB0F6"));
+        CATEGORY_COLORS.put("Học tập", Color.parseColor("#CE82FF"));
+        CATEGORY_COLORS.put("Tài chính", Color.parseColor("#FFC800"));
+        CATEGORY_COLORS.put("Sở thích", Color.parseColor("#FF4B4B"));
     }
 
     @Override
@@ -305,9 +305,9 @@ public class StatisticsActivity extends AppCompatActivity {
         });
 
         BarDataSet dataSet = new BarDataSet(entries, "Nhiệm vụ hoàn thành");
-        dataSet.setColor(Color.parseColor("#4361EE"));
-        dataSet.setValueTextColor(Color.parseColor("#2B2D42"));
-        dataSet.setValueTextSize(10f);
+        dataSet.setColor(Color.parseColor("#58CC02"));
+        dataSet.setValueTextColor(Color.parseColor("#3C3C3C"));
+        dataSet.setValueTextSize(11f);
 
         BarData barData = new BarData(dataSet);
         barData.setBarWidth(0.5f);

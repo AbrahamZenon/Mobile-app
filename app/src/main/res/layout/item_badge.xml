@@ -8,23 +8,24 @@
     android:clickable="true"
     android:focusable="true"
     android:foreground="?android:attr/selectableItemBackground"
-    app:cardBackgroundColor="@color/surface"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="2dp">
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardCornerRadius="18dp"
+    app:cardElevation="0dp">
 
     <LinearLayout
         android:id="@+id/layoutBadgeContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_duo_card_locked"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="12dp">
+        android:padding="14dp">
 
         <!-- Icon huy hiệu -->
         <ImageView
             android:id="@+id/ivBadgeIcon"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:contentDescription="@string/section_badges"
             android:src="@drawable/ic_badge_default" />
 
@@ -39,33 +40,35 @@
             android:maxLines="1"
             android:text="Tên Huy Hiệu"
             android:textColor="@color/text_primary"
-            android:textSize="13sp"
+            android:textSize="13.5sp"
             android:textStyle="bold" />
 
-        <!-- Pill trạng thái (Đã mở khóa / Chưa mở khóa) -->
+        <!-- Pill trạng thái -->
         <TextView
             android:id="@+id/tvBadgeStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:background="@drawable/bg_status_pill_locked"
-            android:paddingStart="8dp"
-            android:paddingTop="2dp"
-            android:paddingEnd="8dp"
-            android:paddingBottom="2dp"
+            android:paddingStart="10dp"
+            android:paddingTop="3dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="3dp"
             android:text="@string/badge_status_locked"
             android:textColor="@color/badge_locked_text"
-            android:textSize="11sp" />
+            android:textSize="11sp"
+            android:textStyle="bold" />
 
         <!-- Mô tả ngắn điều kiện -->
         <TextView
             android:id="@+id/tvBadgeDesc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="6dp"
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="2"
+            android:minLines="2"
             android:text="Mô tả điều kiện huy hiệu"
             android:textColor="@color/text_secondary"
             android:textSize="11sp" />
@@ -79,8 +82,9 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:textColor="@color/badge_gold"
+            android:textColor="@color/duo_gold_dark"
             android:textSize="10sp"
+            android:textStyle="bold"
             android:visibility="gone" />
 
     </LinearLayout>

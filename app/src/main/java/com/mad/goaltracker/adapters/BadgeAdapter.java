@@ -71,14 +71,14 @@ public class BadgeAdapter extends RecyclerView.Adapter<BadgeAdapter.BadgeViewHol
         int iconRes = BadgeIconHelper.getBadgeDrawableResId(badge.getIconName());
         holder.ivBadgeIcon.setImageResource(iconRes);
 
-        // 3. Phân biệt trạng thái Đã mở khóa vs Chưa mở khóa
+        // 3. Phân biệt trạng thái Đã mở khóa vs Chưa mở khóa phong cách Duolingo 3D
         if (badge.isUnlocked()) {
-            holder.cardBadgeItem.setCardBackgroundColor(Color.parseColor("#FFFDF0"));
+            holder.layoutBadgeContainer.setBackgroundResource(R.drawable.bg_duo_card_gold);
             holder.ivBadgeIcon.setAlpha(1.0f);
 
             holder.tvBadgeStatus.setText(R.string.badge_status_unlocked);
             holder.tvBadgeStatus.setBackgroundResource(R.drawable.bg_status_pill_unlocked);
-            holder.tvBadgeStatus.setTextColor(Color.parseColor("#06D6A0"));
+            holder.tvBadgeStatus.setTextColor(Color.parseColor("#58A700"));
 
             if (badge.getUnlockedAt() != null && !badge.getUnlockedAt().trim().isEmpty()) {
                 String dateOnly = badge.getUnlockedAt().split(" ")[0];
@@ -88,12 +88,12 @@ public class BadgeAdapter extends RecyclerView.Adapter<BadgeAdapter.BadgeViewHol
                 holder.tvBadgeUnlockedAt.setVisibility(View.GONE);
             }
         } else {
-            holder.cardBadgeItem.setCardBackgroundColor(Color.parseColor("#F8F9FA"));
+            holder.layoutBadgeContainer.setBackgroundResource(R.drawable.bg_duo_card_locked);
             holder.ivBadgeIcon.setAlpha(0.35f);
 
             holder.tvBadgeStatus.setText(R.string.badge_status_locked);
             holder.tvBadgeStatus.setBackgroundResource(R.drawable.bg_status_pill_locked);
-            holder.tvBadgeStatus.setTextColor(Color.parseColor("#8D99AE"));
+            holder.tvBadgeStatus.setTextColor(Color.parseColor("#AFAFAF"));
 
             holder.tvBadgeUnlockedAt.setVisibility(View.GONE);
         }
@@ -116,6 +116,7 @@ public class BadgeAdapter extends RecyclerView.Adapter<BadgeAdapter.BadgeViewHol
 
     static class BadgeViewHolder extends RecyclerView.ViewHolder {
         CardView cardBadgeItem;
+        View layoutBadgeContainer;
         ImageView ivBadgeIcon;
         TextView tvBadgeTitle;
         TextView tvBadgeStatus;
@@ -125,6 +126,7 @@ public class BadgeAdapter extends RecyclerView.Adapter<BadgeAdapter.BadgeViewHol
         BadgeViewHolder(@NonNull View itemView) {
             super(itemView);
             cardBadgeItem = itemView.findViewById(R.id.cardBadgeItem);
+            layoutBadgeContainer = itemView.findViewById(R.id.layoutBadgeContainer);
             ivBadgeIcon = itemView.findViewById(R.id.ivBadgeIcon);
             tvBadgeTitle = itemView.findViewById(R.id.tvBadgeTitle);
             tvBadgeStatus = itemView.findViewById(R.id.tvBadgeStatus);

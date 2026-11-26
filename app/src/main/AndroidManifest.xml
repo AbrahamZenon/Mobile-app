@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.mad.goaltracker">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Quyền phục hồi lịch nhắc nhở sau khi thiết bị khởi động lại -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
@@ -23,7 +22,8 @@
         <!-- Màn hình kiểm tra mã PIN bảo mật khi khởi động ứng dụng -->
         <activity
             android:name=".activities.SecurityPinActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.GoalTracker.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -33,7 +33,8 @@
         <!-- Màn hình chính Dashboard -->
         <activity
             android:name=".activities.MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.GoalTracker.NoActionBar" />
 
         <!-- Màn hình thêm / sửa mục tiêu -->
         <activity
@@ -64,21 +65,24 @@
             android:name=".activities.StatisticsActivity"
             android:exported="false"
             android:label="@string/title_statistics"
-            android:parentActivityName=".activities.MainActivity" />
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/Theme.GoalTracker.NoActionBar" />
 
         <!-- Màn hình thành tích, chuỗi hoạt động và danh sách huy hiệu (Prompt 6) -->
         <activity
             android:name=".activities.GamificationActivity"
             android:exported="false"
             android:label="@string/title_gamification"
-            android:parentActivityName=".activities.MainActivity" />
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/Theme.GoalTracker.NoActionBar" />
 
         <!-- Màn hình cài đặt thông báo và quản lý quyền nhắc nhở (Prompt 7) -->
         <activity
             android:name=".activities.NotificationSettingsActivity"
             android:exported="false"
             android:label="@string/title_notification_settings"
-            android:parentActivityName=".activities.MainActivity" />
+            android:parentActivityName=".activities.MainActivity"
+            android:theme="@style/Theme.GoalTracker.NoActionBar" />
 
         <!-- BroadcastReceiver nhận alarm từ AlarmManager (Nội bộ, không export) -->
         <receiver

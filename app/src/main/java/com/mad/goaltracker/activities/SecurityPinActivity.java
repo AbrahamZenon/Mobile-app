@@ -62,7 +62,7 @@ public class SecurityPinActivity extends AppCompatActivity {
                 btnDisablePin.setVisibility(View.VISIBLE);
                 btnDisablePin.setOnClickListener(v -> {
                     dbHelper.setSecurity("", false);
-                    Toast.makeText(this, "Đã tắt tính năng bảo mật mã PIN!", Toast.LENGTH_SHORT).finish();
+                    Toast.makeText(this, "Đã tắt tính năng bảo mật mã PIN!", Toast.LENGTH_SHORT).show();
                     finish();
                 });
             } else {

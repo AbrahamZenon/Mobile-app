@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Duolingo-inspired Goalie Owl / Mascot face -->
+    <path
+        android:fillColor="#58CC02"
+        android:pathData="M24,6 C13,6 6,13.5 6,24 C6,34.5 13,42 24,42 C35,42 42,34.5 42,24 C42,13.5 35,6 24,6 Z" />
+    <!-- Ear tufts -->
+    <path
+        android:fillColor="#58A700"
+        android:pathData="M9,14 L14,8 L18,13 Z" />
+    <path
+        android:fillColor="#58A700"
+        android:pathData="M39,14 L34,8 L30,13 Z" />
+    <!-- Bright Belly / Chest patch -->
+    <path
+        android:fillColor="#89E219"
+        android:pathData="M14,31 C14,26 18.5,24 24,24 C29.5,24 34,26 34,31 C34,37 29.5,40 24,40 C18.5,40 14,37 14,31 Z" />
+    <!-- Left Eye White -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M16.5,21 m-5.5,0 a5.5,5.5 0 1,0 11,0 a5.5,5.5 0 1,0 -11,0" />
+    <!-- Right Eye White -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M31.5,21 m-5.5,0 a5.5,5.5 0 1,0 11,0 a5.5,5.5 0 1,0 -11,0" />
+    <!-- Left Pupil -->
+    <path
+        android:fillColor="#3C3C3C"
+        android:pathData="M17.5,21 m-2.6,0 a2.6,2.6 0 1,0 5.2,0 a2.6,2.6 0 1,0 -5.2,0" />
+    <!-- Right Pupil -->
+    <path
+        android:fillColor="#3C3C3C"
+        android:pathData="M30.5,21 m-2.6,0 a2.6,2.6 0 1,0 5.2,0 a2.6,2.6 0 1,0 -5.2,0" />
+    <!-- Eye Sparkles -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M18.5,19.8 m-1,0 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M31.5,19.8 m-1,0 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0" />
+    <!-- Beak / Smile -->
+    <path
+        android:fillColor="#FFC800"
+        android:pathData="M21,25 L27,25 L24,29.5 Z" />
+</vector>

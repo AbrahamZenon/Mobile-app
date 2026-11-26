@@ -13,11 +13,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="📖 Nhật Ký &amp; Ghi Chú Hành Trình"
+            android:layout_margin="16dp"
+            android:text="Nhật Ký &amp; Ghi Chú Hành Trình"
+            android:textColor="@color/duo_green_dark"
             android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="@color/primary"
-            android:layout_margin="16dp" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvEmptyJournals"
@@ -26,13 +26,15 @@
             android:gravity="center"
             android:text="Chưa có bài viết nhật ký nào.\nHãy ghi nhận cảm xúc và tiến trình của bạn!"
             android:textColor="@color/text_secondary"
+            android:textStyle="bold"
             android:visibility="gone" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvJournals"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="80dp" />
+            android:clipToPadding="false"
+            android:paddingBottom="88dp" />
 
     </LinearLayout>
 
@@ -42,9 +44,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="20dp"
-        android:backgroundTint="@color/primary"
-        android:src="@android:drawable/ic_menu_edit"
         android:contentDescription="Viết nhật ký mới"
+        android:src="@android:drawable/ic_menu_edit"
+        app:backgroundTint="@color/duo_green"
+        app:borderWidth="0dp"
+        app:elevation="4dp"
         app:tint="@color/surface" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
