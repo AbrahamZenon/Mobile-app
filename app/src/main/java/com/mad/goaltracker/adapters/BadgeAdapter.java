@@ -19,10 +19,7 @@ import com.mad.goaltracker.utils.BadgeIconHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Adapter hiển thị danh sách 8 huy hiệu thành tích dạng lưới 2 cột.
- * Hỗ trợ trạng thái mở khóa và chưa mở khóa với màu sắc và icon phân biệt rõ ràng.
- */
+
 public class BadgeAdapter extends RecyclerView.Adapter<BadgeAdapter.BadgeViewHolder> {
 
     public interface OnBadgeClickListener {
