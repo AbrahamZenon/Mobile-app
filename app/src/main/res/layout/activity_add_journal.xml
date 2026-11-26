@@ -3,29 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:padding="20dp">
+    android:padding="18dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@drawable/bg_duo_card"
+        android:orientation="vertical"
+        android:padding="18dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ghi Chép Hành Trình ✍️"
+            android:layout_marginBottom="16dp"
+            android:text="Ghi Chép Hành Trình"
+            android:textColor="@color/duo_green_dark"
             android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="@color/primary"
-            android:layout_marginBottom="16dp" />
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tâm trạng hôm nay của bạn:"
-            android:textStyle="bold"
+            android:textColor="@color/text_primary"
             android:textSize="14sp"
-            android:textColor="@color/text_primary" />
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/spJournalMood"
@@ -33,55 +35,60 @@
             android:layout_height="48dp"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="16dp"
-            android:background="@android:drawable/btn_dropdown" />
+            android:background="@drawable/bg_duo_input"
+            android:paddingHorizontal="8dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nội dung nhật ký (*)"
-            android:textStyle="bold"
+            android:textColor="@color/text_primary"
             android:textSize="14sp"
-            android:textColor="@color/text_primary" />
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etJournalContent"
             android:layout_width="match_parent"
             android:layout_height="120dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_duo_input"
             android:gravity="top|start"
             android:hint="Hôm nay bạn đã làm được gì? Cảm thấy thế nào? Gặp khó khăn gì?"
-            android:background="@android:drawable/editbox_background"
-            android:padding="12dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="16dp" />
+            android:padding="14dp"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_secondary" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Đánh giá &amp; Điều chỉnh chiến lược (nếu có)"
-            android:textStyle="bold"
+            android:textColor="@color/text_primary"
             android:textSize="14sp"
-            android:textColor="@color/text_primary" />
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etJournalStrategy"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="84dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/bg_duo_input"
             android:gravity="top|start"
             android:hint="Cần thay đổi điều gì trong cách làm để đạt hiệu quả cao hơn?"
-            android:background="@android:drawable/editbox_background"
-            android:padding="12dp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="24dp" />
+            android:padding="14dp"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_secondary" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSaveJournal"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_height="54dp"
+            android:background="@drawable/btn_duo_green"
             android:text="LƯU BÀI VIẾT"
+            android:textColor="@color/surface"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:backgroundTint="@color/primary"
-            android:textColor="@color/surface" />
+            android:textStyle="bold" />
 
     </LinearLayout>
 </ScrollView>

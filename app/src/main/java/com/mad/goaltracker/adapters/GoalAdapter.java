@@ -52,14 +52,14 @@ public class GoalAdapter extends RecyclerView.Adapter<GoalAdapter.GoalViewHolder
         holder.progressBar.setProgress(goal.getProgress());
         holder.tvProgressText.setText(goal.getProgress() + "%");
 
-        // Đổi màu chip danh mục
+        // Đổi màu chip danh mục theo bảng màu Duolingo
         switch (goal.getCategory()) {
-            case "Sức khỏe": holder.tvCategory.setTextColor(Color.parseColor("#06D6A0")); break;
-            case "Công việc": holder.tvCategory.setTextColor(Color.parseColor("#118AB2")); break;
-            case "Học tập": holder.tvCategory.setTextColor(Color.parseColor("#7209B7")); break;
-            case "Tài chính": holder.tvCategory.setTextColor(Color.parseColor("#FFD166")); break;
-            case "Sở thích": holder.tvCategory.setTextColor(Color.parseColor("#F72585")); break;
-            default: holder.tvCategory.setTextColor(Color.parseColor("#4361EE")); break;
+            case "Sức khỏe": holder.tvCategory.setTextColor(Color.parseColor("#58A700")); break;
+            case "Công việc": holder.tvCategory.setTextColor(Color.parseColor("#1899D6")); break;
+            case "Học tập": holder.tvCategory.setTextColor(Color.parseColor("#A560E8")); break;
+            case "Tài chính": holder.tvCategory.setTextColor(Color.parseColor("#E07E00")); break;
+            case "Sở thích": holder.tvCategory.setTextColor(Color.parseColor("#EA2B2B")); break;
+            default: holder.tvCategory.setTextColor(Color.parseColor("#58CC02")); break;
         }
 
         holder.cardGoal.setOnClickListener(v -> {

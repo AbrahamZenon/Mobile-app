@@ -6,13 +6,12 @@
     android:background="@color/background"
     android:orientation="vertical">
 
-    <!-- Top Custom Toolbar -->
+    <!-- Top Custom Toolbar (Duolingo Crisp Header) -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarNotificationSettings"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/surface"
-        android:elevation="4dp"
         app:contentInsetStart="0dp">
 
         <RelativeLayout
@@ -27,7 +26,8 @@
                 android:layout_centerVertical="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Quay lại"
-                android:src="@drawable/ic_arrow_back" />
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@color/text_primary" />
 
             <TextView
                 android:id="@+id/tvToolbarTitle"
@@ -37,11 +37,16 @@
                 android:layout_toEndOf="@id/btnBack"
                 android:text="@string/title_notification_settings"
                 android:textColor="@color/text_primary"
-                android:textSize="18sp"
+                android:textSize="19sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/duo_border" />
 
     <!-- Loading ProgressBar -->
     <ProgressBar
@@ -65,12 +70,12 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- Unavailable State (Hidden by default, shown if database has no reminders) -->
+            <!-- Unavailable State -->
             <LinearLayout
                 android:id="@+id/layoutUnavailableState"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/surface"
+                android:background="@drawable/bg_duo_card"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="24dp"
@@ -106,9 +111,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
+                    android:letterSpacing="0.06"
                     android:text="@string/section_daily_reminders"
                     android:textColor="@color/text_secondary"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <!-- CARD 1: REMINDER BUỔI SÁNG -->
@@ -117,13 +123,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="14dp"
-                    app:cardBackgroundColor="@color/surface"
-                    app:cardCornerRadius="14dp"
-                    app:cardElevation="3dp">
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="18dp"
+                    app:cardElevation="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_duo_card"
                         android:orientation="vertical"
                         android:padding="16dp">
 
@@ -135,10 +142,11 @@
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
                                 android:contentDescription="Buổi sáng"
-                                android:src="@drawable/ic_wb_sunny" />
+                                android:src="@drawable/ic_wb_sunny"
+                                app:tint="@color/duo_orange" />
 
                             <LinearLayout
                                 android:layout_width="0dp"
@@ -166,17 +174,15 @@
                                     android:textSize="12sp" />
                             </LinearLayout>
 
-                            <!-- Independent Morning Switch -->
                             <androidx.appcompat.widget.SwitchCompat
                                 android:id="@+id/switchMorning"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                         </LinearLayout>
 
-                        <!-- Divider -->
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="1dp"
+                            android:layout_height="2dp"
                             android:layout_marginTop="12dp"
                             android:layout_marginBottom="12dp"
                             android:background="@color/divider" />
@@ -204,7 +210,7 @@
                                     android:layout_height="18dp"
                                     android:contentDescription="Giờ"
                                     android:src="@drawable/ic_access_time"
-                                    app:tint="@color/primary" />
+                                    app:tint="@color/duo_blue_dark" />
 
                                 <TextView
                                     android:id="@+id/tvMorningTime"
@@ -221,14 +227,16 @@
                                 android:id="@+id/btnChangeMorningTime"
                                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                                 android:layout_width="wrap_content"
-                                android:layout_height="40dp"
+                                android:layout_height="42dp"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:text="@string/btn_change_time"
-                                android:textColor="@color/primary"
+                                android:textColor="@color/duo_blue_dark"
                                 android:textSize="13sp"
-                                app:cornerRadius="8dp"
-                                app:strokeColor="@color/primary" />
+                                android:textStyle="bold"
+                                app:cornerRadius="12dp"
+                                app:strokeColor="@color/duo_blue"
+                                app:strokeWidth="2dp" />
                         </RelativeLayout>
 
                     </LinearLayout>
@@ -239,14 +247,15 @@
                     android:id="@+id/cardEvening"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    app:cardBackgroundColor="@color/surface"
-                    app:cardCornerRadius="14dp"
-                    app:cardElevation="3dp">
+                    android:layout_marginBottom="18dp"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="18dp"
+                    app:cardElevation="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_duo_card"
                         android:orientation="vertical"
                         android:padding="16dp">
 
@@ -258,10 +267,11 @@
                             android:orientation="horizontal">
 
                             <ImageView
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
                                 android:contentDescription="Buổi tối"
-                                android:src="@drawable/ic_nightlight" />
+                                android:src="@drawable/ic_nightlight"
+                                app:tint="@color/duo_purple_dark" />
 
                             <LinearLayout
                                 android:layout_width="0dp"
@@ -289,17 +299,15 @@
                                     android:textSize="12sp" />
                             </LinearLayout>
 
-                            <!-- Independent Evening Switch -->
                             <androidx.appcompat.widget.SwitchCompat
                                 android:id="@+id/switchEvening"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content" />
                         </LinearLayout>
 
-                        <!-- Divider -->
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="1dp"
+                            android:layout_height="2dp"
                             android:layout_marginTop="12dp"
                             android:layout_marginBottom="12dp"
                             android:background="@color/divider" />
@@ -327,7 +335,7 @@
                                     android:layout_height="18dp"
                                     android:contentDescription="Giờ"
                                     android:src="@drawable/ic_access_time"
-                                    app:tint="@color/accent" />
+                                    app:tint="@color/duo_purple_dark" />
 
                                 <TextView
                                     android:id="@+id/tvEveningTime"
@@ -344,14 +352,16 @@
                                 android:id="@+id/btnChangeEveningTime"
                                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                                 android:layout_width="wrap_content"
-                                android:layout_height="40dp"
+                                android:layout_height="42dp"
                                 android:layout_alignParentEnd="true"
                                 android:layout_centerVertical="true"
                                 android:text="@string/btn_change_time"
-                                android:textColor="@color/primary"
+                                android:textColor="@color/duo_blue_dark"
                                 android:textSize="13sp"
-                                app:cornerRadius="8dp"
-                                app:strokeColor="@color/primary" />
+                                android:textStyle="bold"
+                                app:cornerRadius="12dp"
+                                app:strokeColor="@color/duo_blue"
+                                app:strokeWidth="2dp" />
                         </RelativeLayout>
 
                     </LinearLayout>
@@ -363,9 +373,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="8dp"
+                    android:letterSpacing="0.06"
                     android:text="@string/section_notification_permission"
                     android:textColor="@color/text_secondary"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <!-- CARD 3: QUYỀN THÔNG BÁO HỆ THỐNG -->
@@ -373,18 +384,18 @@
                     android:id="@+id/cardNotificationPermission"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    app:cardBackgroundColor="@color/surface"
-                    app:cardCornerRadius="14dp"
-                    app:cardElevation="3dp">
+                    android:layout_marginBottom="18dp"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="18dp"
+                    app:cardElevation="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_duo_card"
                         android:orientation="vertical"
                         android:padding="16dp">
 
-                        <!-- Title Row -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -396,7 +407,7 @@
                                 android:layout_height="26dp"
                                 android:contentDescription="Thông báo"
                                 android:src="@drawable/ic_notification"
-                                app:tint="@color/primary" />
+                                app:tint="@color/duo_green_dark" />
 
                             <TextView
                                 android:id="@+id/tvNotifPermTitle"
@@ -409,7 +420,6 @@
                                 android:textStyle="bold" />
                         </LinearLayout>
 
-                        <!-- Status Badge Pill (Independent Row to prevent squishing) -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -439,38 +449,38 @@
                             android:textColor="@color/text_secondary"
                             android:textSize="13sp" />
 
-                        <!-- Action Buttons Container -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="12dp"
                             android:orientation="vertical">
 
-                            <!-- Button Request Runtime Permission (API 33+) -->
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnRequestNotificationPermission"
                                 android:layout_width="match_parent"
-                                android:layout_height="44dp"
-                                android:backgroundTint="@color/primary"
+                                android:layout_height="46dp"
+                                android:backgroundTint="@color/duo_green"
                                 android:text="@string/btn_request_permission"
                                 android:textColor="@color/surface"
                                 android:textSize="13sp"
+                                android:textStyle="bold"
                                 android:visibility="gone"
-                                app:cornerRadius="8dp" />
+                                app:cornerRadius="12dp" />
 
-                            <!-- Button Open System Settings -->
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnOpenNotificationSettings"
                                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                                 android:layout_width="match_parent"
-                                android:layout_height="44dp"
+                                android:layout_height="46dp"
                                 android:layout_marginTop="6dp"
                                 android:text="@string/btn_open_notification_settings"
-                                android:textColor="@color/primary"
+                                android:textColor="@color/duo_blue_dark"
                                 android:textSize="13sp"
+                                android:textStyle="bold"
                                 android:visibility="gone"
-                                app:cornerRadius="8dp"
-                                app:strokeColor="@color/primary" />
+                                app:cornerRadius="12dp"
+                                app:strokeColor="@color/duo_blue"
+                                app:strokeWidth="2dp" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -482,9 +492,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:layout_marginBottom="8dp"
+                    android:letterSpacing="0.06"
                     android:text="@string/section_exact_alarm"
                     android:textColor="@color/text_secondary"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
                 <!-- CARD 4: ĐỘ CHÍNH XÁC EXACT ALARM -->
@@ -493,17 +504,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="28dp"
-                    app:cardBackgroundColor="@color/surface"
-                    app:cardCornerRadius="14dp"
-                    app:cardElevation="3dp">
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:cardCornerRadius="18dp"
+                    app:cardElevation="0dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_duo_card"
                         android:orientation="vertical"
                         android:padding="16dp">
 
-                        <!-- Title Row -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -515,7 +526,7 @@
                                 android:layout_height="26dp"
                                 android:contentDescription="Báo giờ chính xác"
                                 android:src="@drawable/ic_alarm_on"
-                                app:tint="@color/accent" />
+                                app:tint="@color/duo_purple_dark" />
 
                             <TextView
                                 android:id="@+id/tvExactAlarmTitle"
@@ -528,7 +539,6 @@
                                 android:textStyle="bold" />
                         </LinearLayout>
 
-                        <!-- Status Badge Pill (Independent Row) -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
@@ -568,18 +578,18 @@
                             android:textSize="12sp"
                             android:visibility="gone" />
 
-                        <!-- Button Request Exact Alarm -->
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnRequestExactAlarm"
                             android:layout_width="match_parent"
-                            android:layout_height="44dp"
+                            android:layout_height="46dp"
                             android:layout_marginTop="12dp"
-                            android:backgroundTint="@color/accent"
+                            android:backgroundTint="@color/duo_purple_dark"
                             android:text="@string/btn_request_exact_alarm"
                             android:textColor="@color/surface"
                             android:textSize="13sp"
+                            android:textStyle="bold"
                             android:visibility="gone"
-                            app:cornerRadius="8dp" />
+                            app:cornerRadius="12dp" />
 
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>

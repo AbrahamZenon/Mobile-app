@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,6 +21,7 @@ import androidx.fragment.app.DialogFragment;
 import com.mad.goaltracker.R;
 import com.mad.goaltracker.models.Badge;
 import com.mad.goaltracker.utils.BadgeIconHelper;
+import com.mad.goaltracker.views.ConfettiView;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -97,6 +99,8 @@ public class AchievementDialogFragment extends DialogFragment {
         TextView tvDialogSubtitle = view.findViewById(R.id.tvDialogSubtitle);
         LinearLayout layoutBadgeItemsContainer = view.findViewById(R.id.layoutBadgeItemsContainer);
         Button btnDialogDismiss = view.findViewById(R.id.btnDialogDismiss);
+        ConfettiView confettiView = view.findViewById(R.id.confettiView);
+        View layoutDialogCard = view.findViewById(R.id.layoutDialogCard);
 
         btnDialogDismiss.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +134,29 @@ public class AchievementDialogFragment extends DialogFragment {
 
             populateBadgeRows(layoutBadgeItemsContainer, badges);
 
+            // Hiệu ứng ăn mừng kiểu Duolingo: Confetti burst + nảy lò xo
+            if (confettiView != null) {
+                confettiView.startBurst();
+            }
+            if (layoutDialogCard != null) {
+                layoutDialogCard.setScaleX(0.86f);
+                layoutDialogCard.setScaleY(0.86f);
+                layoutDialogCard.animate()
+                        .scaleX(1.0f)
+                        .scaleY(1.0f)
+                        .setDuration(350)
+                        .setInterpolator(new OvershootInterpolator(1.4f))
+                        .start();
+            }
+            ivDialogHeaderIcon.setScaleX(0.5f);
+            ivDialogHeaderIcon.setScaleY(0.5f);
+            ivDialogHeaderIcon.animate()
+                    .scaleX(1.0f)
+                    .scaleY(1.0f)
+                    .setDuration(500)
+                    .setInterpolator(new OvershootInterpolator(2.2f))
+                    .start();
+
         } else {
             // Chế độ xem chi tiết huy hiệu
             Badge badge = (Badge) args.getSerializable(ARG_SINGLE_BADGE);
@@ -147,8 +174,8 @@ public class AchievementDialogFragment extends DialogFragment {
                     : getString(R.string.badge_status_locked);
             tvDialogSubtitle.setText(statusStr);
             tvDialogSubtitle.setTextColor(badge.isUnlocked()
-                    ? Color.parseColor("#06D6A0")
-                    : Color.parseColor("#8D99AE"));
+                    ? Color.parseColor("#58A700")
+                    : Color.parseColor("#AFAFAF"));
 
             btnDialogDismiss.setText(R.string.btn_dialog_close);
 

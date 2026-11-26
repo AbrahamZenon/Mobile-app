@@ -1,11 +1,16 @@
 package com.mad.goaltracker.activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.Gravity;
 import android.view.View;
+import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,21 +29,23 @@ import com.mad.goaltracker.gamification.MotivationalQuoteProvider;
 import com.mad.goaltracker.gamification.StreakSummary;
 import com.mad.goaltracker.models.Badge;
 import com.mad.goaltracker.models.Quote;
+import com.mad.goaltracker.utils.StatisticsDateUtils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Màn hình Thành Tích & Gamification của GoalTracker.
+ * Màn hình Thành Tích & Gamification phong cách Duolingo của GoalTracker.
  * Hiển thị:
- * - Chuỗi hoạt động hiện tại (Current Streak) & Kỷ lục chuỗi (Longest Streak)
- * - Câu danh ngôn tạo động lực hằng ngày (Daily Motivational Quote)
- * - Tiến độ mở khóa huy hiệu (X / 8 huy hiệu)
- * - Lưới 2 cột hiển thị đầy đủ 8 huy hiệu thành tích
- * - Tự động hiển thị Achievement Dialog khi người dùng vừa mở khóa huy hiệu mới
+ * - Hero Streak Card + Dải lịch hoạt động 7 ngày (T2 - CN)
+ * - Mascot Speech Bubble với câu danh ngôn tạo động lực hằng ngày
+ * - Tủ huy hiệu 2 cột hiển thị đầy đủ 8 huy hiệu thành tích
+ * - Dialog ăn mừng kèm hiệu ứng Confetti khi vừa mở khóa huy hiệu mới
  */
 public class GamificationActivity extends AppCompatActivity implements BadgeAdapter.OnBadgeClickListener {
 
@@ -52,9 +59,11 @@ public class GamificationActivity extends AppCompatActivity implements BadgeAdap
     private ExecutorService executor;
     private Handler mainHandler;
 
+    private ImageView ivStreakFlame;
     private TextView tvCurrentStreakNumber;
     private TextView tvLongestStreak;
     private TextView tvStreakEncouragement;
+    private LinearLayout layoutStreakWeekStrip;
     private TextView tvQuoteContent;
     private TextView tvQuoteAuthor;
     private TextView tvBadgeProgressSummary;
@@ -63,7 +72,6 @@ public class GamificationActivity extends AppCompatActivity implements BadgeAdap
     private ImageButton btnBack;
     private Button btnRefreshGamification;
 
-    // Cờ đánh dấu đã đánh giá mở khóa huy hiệu trong phiên (tránh đánh giá trùng khi xoay màn hình)
     private boolean hasEvaluatedBadges = false;
 
     @Override
@@ -86,14 +94,15 @@ public class GamificationActivity extends AppCompatActivity implements BadgeAdap
             hasEvaluatedBadges = savedInstanceState.getBoolean(KEY_HAS_EVALUATED, false);
         }
 
-        // Tải dữ liệu; chỉ đánh giá mở khóa huy hiệu nếu chưa được đánh giá trong phiên này
         loadGamificationData(!hasEvaluatedBadges);
     }
 
     private void initViews() {
+        ivStreakFlame = findViewById(R.id.ivStreakFlame);
         tvCurrentStreakNumber = findViewById(R.id.tvCurrentStreakNumber);
         tvLongestStreak = findViewById(R.id.tvLongestStreak);
         tvStreakEncouragement = findViewById(R.id.tvStreakEncouragement);
+        layoutStreakWeekStrip = findViewById(R.id.layoutStreakWeekStrip);
         tvQuoteContent = findViewById(R.id.tvQuoteContent);
         tvQuoteAuthor = findViewById(R.id.tvQuoteAuthor);
         tvBadgeProgressSummary = findViewById(R.id.tvBadgeProgressSummary);
@@ -102,20 +111,9 @@ public class GamificationActivity extends AppCompatActivity implements BadgeAdap
         btnBack = findViewById(R.id.btnBack);
         btnRefreshGamification = findViewById(R.id.btnRefreshGamification);
 
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+        btnBack.setOnClickListener(v -> onBackPressed());
 
-        btnRefreshGamification.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Khi bấm làm mới thủ công, cho phép đánh giá lại huy hiệu
-                loadGamificationData(true);
-            }
-        });
+        btnRefreshGamification.setOnClickListener(v -> loadGamificationData(true));
     }
 
     private void setupRecyclerView() {
@@ -124,93 +122,80 @@ public class GamificationActivity extends AppCompatActivity implements BadgeAdap
         rvBadges.setAdapter(badgeAdapter);
     }
 
-    /**
-     * Tải toàn bộ dữ liệu Gamification ngầm trên Background Thread.
-     *
-     * @param shouldEvaluateBadges Nếu true, chạy logic đánh giá và mở khóa badge mới
-     */
     private void loadGamificationData(final boolean shouldEvaluateBadges) {
         if (progressBarLoading != null) {
             progressBarLoading.setVisibility(View.VISIBLE);
         }
 
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    // 1. Kiểm tra huy hiệu đang chờ chúc mừng từ PendingAchievementStore hoặc đánh giá mới
-                    List<Badge> badgesToCelebrate = com.mad.goaltracker.gamification.AchievementEventCoordinator.getPendingBadgesToCelebrate(GamificationActivity.this, dbHelper);
-                    if (badgesToCelebrate == null) {
-                        badgesToCelebrate = new ArrayList<>();
-                    }
-
-                    if (badgesToCelebrate.isEmpty() && shouldEvaluateBadges) {
-                        List<Badge> newlyEvaluated = gamificationManager.evaluateAndUnlockBadges();
-                        if (newlyEvaluated != null && !newlyEvaluated.isEmpty()) {
-                            badgesToCelebrate = newlyEvaluated;
-                        }
-                    }
-
-                    final List<Badge> newlyUnlocked = badgesToCelebrate;
-
-                    // 2. Tính toán chuỗi hoạt động
-                    final StreakSummary streakSummary = gamificationManager.getStreakSummary();
-
-                    // 3. Lấy câu danh ngôn trong ngày
-                    final Quote dailyQuote = quoteProvider.getDailyQuote();
-
-                    // 4. Lấy danh sách toàn bộ 8 huy hiệu từ Database (đã cập nhật trạng thái mới nhất)
-                    final List<Badge> allBadges = dbHelper.getAllBadges();
-                    final int unlockedCount = dbHelper.getUnlockedBadgesCount();
-
-                    // 5. Cập nhật giao diện trên Main Thread
-                    mainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (isFinishing() || isDestroyed()) return;
-
-                            bindGamificationData(streakSummary, dailyQuote, allBadges, unlockedCount);
-
-                            // Nếu có huy hiệu vừa mở khóa thành công, hiển thị Dialog chúc mừng
-                            if (newlyUnlocked != null && !newlyUnlocked.isEmpty()) {
-                                showAchievementDialog(newlyUnlocked);
-                            }
-
-                            hasEvaluatedBadges = true;
-
-                            if (progressBarLoading != null) {
-                                progressBarLoading.setVisibility(View.GONE);
-                            }
-                        }
-                    });
-
-                } catch (final Throwable t) {
-                    mainHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (progressBarLoading != null) {
-                                progressBarLoading.setVisibility(View.GONE);
-                            }
-                            Toast.makeText(GamificationActivity.this,
-                                    "Không thể tải dữ liệu thành tích. Vui lòng thử lại!",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    });
+        executor.execute(() -> {
+            try {
+                List<Badge> badgesToCelebrate = com.mad.goaltracker.gamification.AchievementEventCoordinator
+                        .getPendingBadgesToCelebrate(GamificationActivity.this, dbHelper);
+                if (badgesToCelebrate == null) {
+                    badgesToCelebrate = new ArrayList<>();
                 }
+
+                if (badgesToCelebrate.isEmpty() && shouldEvaluateBadges) {
+                    List<Badge> newlyEvaluated = gamificationManager.evaluateAndUnlockBadges();
+                    if (newlyEvaluated != null && !newlyEvaluated.isEmpty()) {
+                        badgesToCelebrate = newlyEvaluated;
+                    }
+                }
+
+                final List<Badge> newlyUnlocked = badgesToCelebrate;
+                final StreakSummary streakSummary = gamificationManager.getStreakSummary();
+                final List<String> activityDates = dbHelper.getAllActivityDates();
+                final Quote dailyQuote = quoteProvider.getDailyQuote();
+                final List<Badge> allBadges = dbHelper.getAllBadges();
+                final int unlockedCount = dbHelper.getUnlockedBadgesCount();
+
+                mainHandler.post(() -> {
+                    if (isFinishing() || isDestroyed()) return;
+
+                    bindGamificationData(streakSummary, activityDates, dailyQuote, allBadges, unlockedCount);
+
+                    if (newlyUnlocked != null && !newlyUnlocked.isEmpty()) {
+                        showAchievementDialog(newlyUnlocked);
+                    }
+
+                    hasEvaluatedBadges = true;
+
+                    if (progressBarLoading != null) {
+                        progressBarLoading.setVisibility(View.GONE);
+                    }
+                });
+
+            } catch (final Throwable t) {
+                mainHandler.post(() -> {
+                    if (progressBarLoading != null) {
+                        progressBarLoading.setVisibility(View.GONE);
+                    }
+                    Toast.makeText(GamificationActivity.this,
+                            "Không thể tải dữ liệu thành tích. Vui lòng thử lại!",
+                            Toast.LENGTH_SHORT).show();
+                });
             }
         });
     }
 
-    /**
-     * Gắn dữ liệu lên giao diện người dùng.
-     */
-    private void bindGamificationData(StreakSummary streak, Quote quote, List<Badge> badges, int unlockedCount) {
-        // Gắn Streak Card
+    private void bindGamificationData(StreakSummary streak, List<String> activityDates, Quote quote,
+                                      List<Badge> badges, int unlockedCount) {
         int currentStreak = (streak != null) ? streak.getCurrentStreak() : 0;
         int longestStreak = (streak != null) ? streak.getLongestStreak() : 0;
 
         tvCurrentStreakNumber.setText(String.format(Locale.US, "%d NGÀY", currentStreak));
         tvLongestStreak.setText(getString(R.string.streak_record_label, longestStreak));
+
+        if (currentStreak > 0 && ivStreakFlame != null) {
+            ivStreakFlame.setScaleX(0.75f);
+            ivStreakFlame.setScaleY(0.75f);
+            ivStreakFlame.animate()
+                    .scaleX(1.0f)
+                    .scaleY(1.0f)
+                    .setDuration(450)
+                    .setInterpolator(new OvershootInterpolator(2.0f))
+                    .start();
+        }
 
         if (currentStreak == 0) {
             tvStreakEncouragement.setVisibility(View.VISIBLE);
@@ -218,13 +203,13 @@ public class GamificationActivity extends AppCompatActivity implements BadgeAdap
             tvStreakEncouragement.setVisibility(View.GONE);
         }
 
-        // Gắn Daily Quote Card
+        renderStreakWeekStrip(activityDates);
+
         if (quote != null) {
             tvQuoteContent.setText(String.format("“%s”", quote.getContent()));
             tvQuoteAuthor.setText(String.format("— %s", quote.getAuthor()));
         }
 
-        // Gắn Badges Section
         int totalBadges = (badges != null && !badges.isEmpty()) ? badges.size() : 8;
         tvBadgeProgressSummary.setText(getString(R.string.badge_progress_summary, unlockedCount, totalBadges));
 
@@ -234,8 +219,65 @@ public class GamificationActivity extends AppCompatActivity implements BadgeAdap
     }
 
     /**
-     * Hiển thị Achievement Dialog khi có huy hiệu mới mở khóa.
+     * Render dải lịch 7 ngày gần nhất kiểu Duolingo (T2 - CN) dựa trên ngày hoạt động thật trong SQLite.
      */
+    private void renderStreakWeekStrip(List<String> activityDates) {
+        if (layoutStreakWeekStrip == null) return;
+        layoutStreakWeekStrip.removeAllViews();
+
+        Set<String> activeSet = new HashSet<>();
+        if (activityDates != null) {
+            activeSet.addAll(activityDates);
+        }
+
+        List<String> last7Days = StatisticsDateUtils.getLast7Days();
+        float density = getResources().getDisplayMetrics().density;
+        int dotSizePx = (int) (30 * density);
+
+        for (int i = 0; i < last7Days.size(); i++) {
+            String dateStr = last7Days.get(i);
+            boolean isActive = activeSet.contains(dateStr);
+            boolean isToday = (i == last7Days.size() - 1);
+            String dayLabel = StatisticsDateUtils.getDayOfWeekLabel(dateStr);
+
+            LinearLayout col = new LinearLayout(this);
+            col.setOrientation(LinearLayout.VERTICAL);
+            col.setGravity(Gravity.CENTER);
+            LinearLayout.LayoutParams colParams = new LinearLayout.LayoutParams(
+                    0, LinearLayout.LayoutParams.WRAP_CONTENT, 1.0f);
+            col.setLayoutParams(colParams);
+
+            TextView tvDay = new TextView(this);
+            tvDay.setText(dayLabel);
+            tvDay.setTextSize(11f);
+            tvDay.setGravity(Gravity.CENTER);
+            tvDay.setTextColor(isToday ? Color.parseColor("#E07E00") : Color.parseColor("#777777"));
+            tvDay.setTypeface(null, android.graphics.Typeface.BOLD);
+
+            TextView dot = new TextView(this);
+            LinearLayout.LayoutParams dotParams = new LinearLayout.LayoutParams(dotSizePx, dotSizePx);
+            dotParams.topMargin = (int) (4 * density);
+            dot.setLayoutParams(dotParams);
+            dot.setGravity(Gravity.CENTER);
+            dot.setTextSize(13f);
+            dot.setTypeface(null, android.graphics.Typeface.BOLD);
+
+            if (isActive) {
+                dot.setBackgroundResource(R.drawable.bg_duo_day_active);
+                dot.setText("✓");
+                dot.setTextColor(Color.WHITE);
+            } else {
+                dot.setBackgroundResource(R.drawable.bg_duo_day_inactive);
+                dot.setText(isToday ? "•" : "");
+                dot.setTextColor(Color.parseColor("#AFAFAF"));
+            }
+
+            col.addView(tvDay);
+            col.addView(dot);
+            layoutStreakWeekStrip.addView(col);
+        }
+    }
+
     private void showAchievementDialog(List<Badge> newlyUnlocked) {
         if (newlyUnlocked == null || newlyUnlocked.isEmpty()) return;
         if (isFinishing() || isDestroyed() || getSupportFragmentManager().isStateSaved()) return;
@@ -245,9 +287,6 @@ public class GamificationActivity extends AppCompatActivity implements BadgeAdap
         dialog.show(getSupportFragmentManager(), AchievementDialogFragment.TAG);
     }
 
-    /**
-     * Sự kiện khi người dùng click vào một huy hiệu trong danh sách.
-     */
     @Override
     public void onBadgeClick(Badge badge) {
         if (badge == null) return;

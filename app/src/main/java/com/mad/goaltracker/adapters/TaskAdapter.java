@@ -65,15 +65,15 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.TaskViewHolder
             holder.cbTask.setTextColor(Color.parseColor("#2B2D42"));
         }
 
-        // Màu ưu tiên
+        // Màu ưu tiên theo bảng màu Duolingo
         if ("Cao".equalsIgnoreCase(task.getPriority())) {
-            holder.tvPriority.setBackgroundColor(Color.parseColor("#EF476F"));
+            holder.tvPriority.setBackgroundColor(Color.parseColor("#FF4B4B"));
             holder.tvPriority.setTextColor(Color.WHITE);
         } else if ("Trung bình".equalsIgnoreCase(task.getPriority())) {
-            holder.tvPriority.setBackgroundColor(Color.parseColor("#FFD166"));
-            holder.tvPriority.setTextColor(Color.parseColor("#2B2D42"));
+            holder.tvPriority.setBackgroundColor(Color.parseColor("#FFC800"));
+            holder.tvPriority.setTextColor(Color.parseColor("#3C3C3C"));
         } else {
-            holder.tvPriority.setBackgroundColor(Color.parseColor("#06D6A0"));
+            holder.tvPriority.setBackgroundColor(Color.parseColor("#58CC02"));
             holder.tvPriority.setTextColor(Color.WHITE);
         }
 

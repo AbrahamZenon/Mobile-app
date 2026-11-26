@@ -3,70 +3,76 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:padding="20dp">
+    android:padding="18dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:background="@drawable/bg_duo_card"
+        android:orientation="vertical"
+        android:padding="18dp">
 
         <TextView
             android:id="@+id/tvFormTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thiết Lập Mục Tiêu Mới 🎯"
+            android:layout_marginBottom="18dp"
+            android:text="Thiết Lập Mục Tiêu Mới"
+            android:textColor="@color/duo_green_dark"
             android:textSize="22sp"
-            android:textStyle="bold"
-            android:textColor="@color/primary"
-            android:layout_marginBottom="20dp" />
+            android:textStyle="bold" />
 
         <!-- Tên mục tiêu -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Tên mục tiêu (*)"
+            android:textColor="@color/text_primary"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary" />
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etGoalTitle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Ví dụ: Đạt chứng chỉ IELTS 7.5"
-            android:background="@android:drawable/editbox_background"
-            android:padding="12dp"
+            android:layout_height="48dp"
             android:layout_marginTop="6dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_duo_input"
+            android:hint="Ví dụ: Đạt chứng chỉ IELTS 7.5"
+            android:paddingHorizontal="14dp"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_secondary" />
 
         <!-- Mô tả chi tiết -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mô tả chi tiết mục tiêu"
+            android:textColor="@color/text_primary"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary" />
+            android:textStyle="bold" />
 
         <EditText
             android:id="@+id/etGoalDescription"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:hint="Lý do muốn đạt mục tiêu, kết quả mong đợi..."
-            android:gravity="top|start"
-            android:background="@android:drawable/editbox_background"
-            android:padding="12dp"
             android:layout_marginTop="6dp"
-            android:layout_marginBottom="16dp" />
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/bg_duo_input"
+            android:gravity="top|start"
+            android:hint="Lý do muốn đạt mục tiêu, kết quả mong đợi..."
+            android:padding="14dp"
+            android:textColor="@color/text_primary"
+            android:textColorHint="@color/text_secondary" />
 
         <!-- Lĩnh vực -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Lĩnh vực"
+            android:textColor="@color/text_primary"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary" />
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/spGoalCategory"
@@ -74,38 +80,43 @@
             android:layout_height="48dp"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="16dp"
-            android:background="@android:drawable/btn_dropdown" />
+            android:background="@drawable/bg_duo_input"
+            android:paddingHorizontal="8dp" />
 
-        <!-- Loại mục tiêu: Ngắn hạn / Dài hạn -->
+        <!-- Loại mục tiêu -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Thời hạn mục tiêu"
+            android:textColor="@color/text_primary"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary" />
+            android:textStyle="bold" />
 
         <RadioGroup
             android:id="@+id/rgGoalType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:layout_marginTop="6dp"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal">
 
             <RadioButton
                 android:id="@+id/rbShortTerm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ngắn hạn (dưới 1 tháng)"
+                android:layout_marginEnd="16dp"
+                android:buttonTint="@color/duo_green"
                 android:checked="true"
-                android:layout_marginEnd="16dp" />
+                android:text="Ngắn hạn (&lt; 1 tháng)"
+                android:textColor="@color/text_primary" />
 
             <RadioButton
                 android:id="@+id/rbLongTerm"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dài hạn" />
+                android:buttonTint="@color/duo_green"
+                android:text="Dài hạn"
+                android:textColor="@color/text_primary" />
         </RadioGroup>
 
         <!-- Độ khó -->
@@ -113,9 +124,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Mức độ khó của mục tiêu"
+            android:textColor="@color/text_primary"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary" />
+            android:textStyle="bold" />
 
         <Spinner
             android:id="@+id/spGoalDifficulty"
@@ -123,37 +134,41 @@
             android:layout_height="48dp"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="16dp"
-            android:background="@android:drawable/btn_dropdown" />
+            android:background="@drawable/bg_duo_input"
+            android:paddingHorizontal="8dp" />
 
         <!-- Hạn chót Deadline -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ngày hạn chót (Deadline) (*)"
+            android:textColor="@color/text_primary"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@color/text_primary" />
+            android:textStyle="bold" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnPickDeadline"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Chọn ngày hoàn thành"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-            android:textColor="@color/primary"
+            android:layout_height="48dp"
             android:layout_marginTop="6dp"
-            android:layout_marginBottom="24dp" />
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/btn_duo_white"
+            android:text="Chọn ngày hoàn thành"
+            android:textAllCaps="false"
+            android:textColor="@color/duo_blue_dark"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-        <!-- Nút Lưu -->
-        <Button
+        <!-- Nút Lưu 3D Duolingo -->
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnSaveGoal"
             android:layout_width="match_parent"
-            android:layout_height="52dp"
+            android:layout_height="54dp"
+            android:background="@drawable/btn_duo_green"
             android:text="LƯU MỤC TIÊU"
+            android:textColor="@color/surface"
             android:textSize="16sp"
-            android:textStyle="bold"
-            android:backgroundTint="@color/primary"
-            android:textColor="@color/surface" />
+            android:textStyle="bold" />
 
     </LinearLayout>
 </ScrollView>

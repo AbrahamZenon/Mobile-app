@@ -6,13 +6,12 @@
     android:background="@color/background"
     android:orientation="vertical">
 
-    <!-- Top Toolbar -->
+    <!-- Top Toolbar (Duolingo Crisp Header) -->
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarGamification"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/surface"
-        android:elevation="4dp"
         app:contentInsetStart="0dp">
 
         <RelativeLayout
@@ -27,7 +26,8 @@
                 android:layout_centerVertical="true"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Quay lại"
-                android:src="@drawable/ic_arrow_back" />
+                android:src="@drawable/ic_arrow_back"
+                app:tint="@color/text_primary" />
 
             <TextView
                 android:id="@+id/tvToolbarTitle"
@@ -37,11 +37,16 @@
                 android:layout_toEndOf="@id/btnBack"
                 android:text="@string/title_gamification"
                 android:textColor="@color/text_primary"
-                android:textSize="18sp"
+                android:textSize="19sp"
                 android:textStyle="bold" />
 
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/duo_border" />
 
     <!-- Loading ProgressBar -->
     <ProgressBar
@@ -65,19 +70,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- CARD 1: CHUỖI HOẠT ĐỘNG (STREAK CARD) -->
+            <!-- CARD 1: HERO STREAK CARD + 7-DAY STREAK STRIP -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardStreak"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/surface"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="3dp">
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_duo_card_streak"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:padding="18dp">
@@ -89,8 +95,9 @@
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="22dp"
-                            android:layout_height="22dp"
+                            android:id="@+id/ivStreakFlame"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
                             android:contentDescription="@string/section_streak"
                             android:src="@drawable/ic_streak_fire" />
 
@@ -98,10 +105,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="8dp"
-                            android:letterSpacing="0.05"
+                            android:letterSpacing="0.06"
                             android:text="@string/section_streak"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="12sp"
+                            android:textColor="@color/duo_orange_dark"
+                            android:textSize="13sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
@@ -110,10 +117,10 @@
                         android:id="@+id/tvCurrentStreakNumber"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
+                        android:layout_marginTop="6dp"
                         android:text="0 NGÀY"
-                        android:textColor="@color/streak_fire_color"
-                        android:textSize="32sp"
+                        android:textColor="@color/duo_orange_dark"
+                        android:textSize="38sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -121,21 +128,34 @@
                         android:layout_height="wrap_content"
                         android:text="@string/streak_current_label"
                         android:textColor="@color/text_secondary"
-                        android:textSize="13sp" />
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <!-- 7-Day Streak Calendar Strip (T2 - CN) -->
+                    <LinearLayout
+                        android:id="@+id/layoutStreakWeekStrip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="14dp"
+                        android:background="@drawable/bg_duo_card"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="10dp" />
 
                     <!-- Kỷ lục chuỗi dài nhất -->
                     <TextView
                         android:id="@+id/tvLongestStreak"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/bg_rounded_chip"
-                        android:paddingStart="12dp"
-                        android:paddingTop="4dp"
-                        android:paddingEnd="12dp"
-                        android:paddingBottom="4dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@drawable/bg_duo_hud_badge"
+                        android:paddingStart="14dp"
+                        android:paddingTop="5dp"
+                        android:paddingEnd="14dp"
+                        android:paddingBottom="5dp"
                         android:text="Kỷ lục của bạn: 0 ngày"
-                        android:textColor="@color/primary"
+                        android:textColor="@color/text_primary"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
@@ -154,109 +174,108 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- CARD 2: LỜI NHẮN HÔM NAY (MOTIVATIONAL QUOTE CARD) -->
+            <!-- CARD 2: MASCOT COACH SPEECH BUBBLE -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardQuote"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/quote_bg"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="2dp">
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:background="@drawable/bg_duo_speech_bubble"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
                     android:padding="16dp">
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="46dp"
+                        android:layout_height="46dp"
+                        android:contentDescription="@string/section_daily_quote"
+                        android:src="@drawable/ic_duo_mascot" />
 
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:contentDescription="@string/section_daily_quote"
-                            android:src="@drawable/ic_format_quote" />
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
-                            android:letterSpacing="0.05"
+                            android:letterSpacing="0.06"
                             android:text="@string/section_daily_quote"
-                            android:textColor="@color/quote_accent"
+                            android:textColor="@color/duo_blue_dark"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvQuoteContent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:lineSpacingExtra="2dp"
+                            android:text="“Mỗi bước đi nhỏ hôm nay đều đưa bạn đến gần hơn với mục tiêu lớn ngày mai.”"
+                            android:textColor="@color/text_primary"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvQuoteAuthor"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:gravity="end"
+                            android:text="— GoalTracker"
+                            android:textColor="@color/duo_blue_dark"
                             android:textSize="12sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <!-- Nội dung câu danh ngôn -->
-                    <TextView
-                        android:id="@+id/tvQuoteContent"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:lineSpacingExtra="3dp"
-                        android:text="“Mỗi bước đi nhỏ hôm nay đều đưa bạn đến gần hơn với mục tiêu lớn ngày mai.”"
-                        android:textColor="@color/text_primary"
-                        android:textSize="14sp"
-                        android:textStyle="italic" />
-
-                    <!-- Tác giả -->
-                    <TextView
-                        android:id="@+id/tvQuoteAuthor"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:gravity="end"
-                        android:text="— GoalTracker"
-                        android:textColor="@color/quote_accent"
-                        android:textSize="12sp"
-                        android:textStyle="bold" />
-
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- CARD 3: DANH SÁCH HUY HIỆU (BADGES SECTION) -->
+            <!-- CARD 3: TỦ HUY HIỆU THÀNH TÍCH (TROPHY SHELF) -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardBadges"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/surface"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="3dp">
+                app:cardBackgroundColor="@android:color/transparent"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="0dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/bg_duo_card"
                     android:orientation="vertical"
                     android:padding="16dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:letterSpacing="0.05"
+                        android:letterSpacing="0.06"
                         android:text="@string/section_badges"
                         android:textColor="@color/text_secondary"
                         android:textSize="12sp"
                         android:textStyle="bold" />
 
-                    <!-- Tổng số huy hiệu đã mở khóa -->
                     <TextView
                         android:id="@+id/tvBadgeProgressSummary"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="0 / 8 huy hiệu đã mở khóa"
-                        android:textColor="@color/primary"
-                        android:textSize="15sp"
+                        android:textColor="@color/duo_green_dark"
+                        android:textSize="16sp"
                         android:textStyle="bold" />
 
-                    <!-- Lưới 2 cột 8 huy hiệu -->
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvBadges"
                         android:layout_width="match_parent"
@@ -267,16 +286,17 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Nút Làm Mới Dữ Liệu -->
-            <Button
+            <!-- Nút Làm Mới 3D White Button -->
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnRefreshGamification"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_marginBottom="24dp"
-                android:text="Làm mới thành tích"
-                android:textColor="@color/primary"
-                app:strokeColor="@color/primary" />
+                android:background="@drawable/btn_duo_white"
+                android:text="LÀM MỚI THÀNH TÍCH"
+                android:textColor="@color/duo_blue_dark"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

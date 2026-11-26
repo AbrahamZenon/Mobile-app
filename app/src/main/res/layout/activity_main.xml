@@ -10,27 +10,35 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- Top App Bar Custom -->
+        <!-- Duolingo Top Bar HUD -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/surface"
             android:gravity="center_vertical"
             android:orientation="horizontal"
-            android:padding="16dp">
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="12dp">
+
+            <ImageView
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_duo_mascot" />
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="GoalTracker 🎯"
-                    android:textColor="@color/primary"
-                    android:textSize="22sp"
+                    android:text="GoalTracker"
+                    android:textColor="@color/duo_green_dark"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -39,38 +47,46 @@
                     android:layout_height="wrap_content"
                     android:text="Đang quản lý 0 mục tiêu"
                     android:textColor="@color/text_secondary"
-                    android:textSize="13sp" />
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- Navigation Icon Buttons: Statistics, Gamification, Notifications, Security -->
+            <!-- Navigation Icon Buttons -->
             <ImageButton
                 android:id="@+id/btnStatistics"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
-                android:layout_marginEnd="2dp"
+                android:layout_marginEnd="4dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Thống kê"
-                android:src="@drawable/ic_bar_chart" />
+                android:padding="7dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_bar_chart"
+                app:tint="@color/duo_blue" />
 
             <ImageButton
                 android:id="@+id/btnGamification"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
-                android:layout_marginEnd="2dp"
+                android:layout_marginEnd="4dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Thành tích"
+                android:padding="7dp"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_celebration"
-                app:tint="@color/badge_gold" />
+                app:tint="@color/duo_gold" />
 
             <ImageButton
                 android:id="@+id/btnNotificationSettings"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
-                android:layout_marginEnd="2dp"
+                android:layout_marginEnd="4dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Cài đặt nhắc nhở"
+                android:padding="7dp"
+                android:scaleType="fitCenter"
                 android:src="@drawable/ic_notification"
-                app:tint="@color/primary" />
+                app:tint="@color/duo_orange" />
 
             <ImageButton
                 android:id="@+id/btnSecuritySettings"
@@ -78,46 +94,57 @@
                 android:layout_height="38dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Cài đặt mã PIN"
-                android:src="@android:drawable/ic_lock_lock" />
+                android:padding="7dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_lock"
+                app:tint="@color/text_secondary" />
         </LinearLayout>
 
-        <!-- Gamification & Motivation Summary Card (Prompt 8) -->
+        <!-- Crisp 2dp Duolingo Divider -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/duo_border" />
+
+        <!-- Duolingo Gamification HUD & Mascot Speech Card -->
         <androidx.cardview.widget.CardView
             android:id="@+id/cardDashboardGamification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:layout_marginBottom="4dp"
             android:foreground="?attr/selectableItemBackground"
-            app:cardBackgroundColor="@color/surface"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="2dp">
+            app:cardBackgroundColor="@android:color/transparent"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="0dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/bg_duo_card"
                 android:orientation="vertical"
-                android:padding="12dp">
+                android:padding="14dp">
 
-                <!-- Streak & Badge Quick Status Row -->
+                <!-- Streak Flame Pill & Trophy Pill Row -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
-                    <!-- Streak Info -->
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:background="@drawable/bg_duo_hud_streak"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="5dp">
 
                         <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
                             android:contentDescription="Streak"
                             android:src="@drawable/ic_streak_fire" />
 
@@ -127,17 +154,24 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="6dp"
                             android:text="0 ngày liên tiếp"
-                            android:textColor="@color/streak_fire_color"
+                            android:textColor="@color/duo_orange_dark"
                             android:textSize="13sp"
                             android:textStyle="bold" />
                     </LinearLayout>
 
-                    <!-- Badges Info -->
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:background="@drawable/bg_duo_hud_badge"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="5dp">
 
                         <ImageView
                             android:layout_width="18dp"
@@ -157,28 +191,27 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- Daily Quote Row -->
+                <!-- Mascot Coach Speech Bubble (Daily Quote) -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/bg_time_badge"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_duo_speech_bubble"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="6dp">
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="10dp">
 
                     <ImageView
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:contentDescription="Danh ngôn"
-                        android:src="@drawable/ic_format_quote"
-                        app:tint="@color/quote_accent" />
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:contentDescription="Mascot"
+                        android:src="@drawable/ic_duo_mascot" />
 
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
+                        android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
@@ -190,25 +223,26 @@
                             android:maxLines="2"
                             android:text="Mỗi bước tiến nhỏ hôm nay đều đưa bạn đến gần hơn với mục tiêu lớn ngày mai."
                             android:textColor="@color/text_primary"
-                            android:textSize="12sp"
-                            android:textStyle="italic" />
+                            android:textSize="12.5sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:id="@+id/tvDashboardQuoteAuthor"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
-                            android:text="— Danh ngôn tạo động lực"
-                            android:textColor="@color/text_secondary"
-                            android:textSize="11sp" />
+                            android:text="— Goalie Coach"
+                            android:textColor="@color/duo_blue_dark"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- Navigation Quick Chips Row -->
+                <!-- Quick Nav Action Row -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="10dp"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
@@ -222,13 +256,14 @@
                         android:insetBottom="0dp"
                         android:padding="0dp"
                         android:text="@string/nav_statistics"
-                        android:textColor="@color/primary"
+                        android:textColor="@color/duo_blue_dark"
                         android:textSize="12sp"
+                        android:textStyle="bold"
                         app:icon="@drawable/ic_bar_chart"
                         app:iconGravity="textStart"
                         app:iconPadding="4dp"
-                        app:iconSize="14dp"
-                        app:iconTint="@color/primary" />
+                        app:iconSize="15dp"
+                        app:iconTint="@color/duo_blue" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnNavGamification"
@@ -240,13 +275,14 @@
                         android:insetBottom="0dp"
                         android:padding="0dp"
                         android:text="@string/nav_gamification"
-                        android:textColor="@color/badge_gold"
+                        android:textColor="@color/duo_gold_dark"
                         android:textSize="12sp"
+                        android:textStyle="bold"
                         app:icon="@drawable/ic_celebration"
                         app:iconGravity="textStart"
                         app:iconPadding="4dp"
-                        app:iconSize="14dp"
-                        app:iconTint="@color/badge_gold" />
+                        app:iconSize="15dp"
+                        app:iconTint="@color/duo_gold" />
 
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/btnNavNotifications"
@@ -258,13 +294,14 @@
                         android:insetBottom="0dp"
                         android:padding="0dp"
                         android:text="@string/nav_notification_settings"
-                        android:textColor="@color/secondary"
+                        android:textColor="@color/duo_orange_dark"
                         android:textSize="12sp"
+                        android:textStyle="bold"
                         app:icon="@drawable/ic_notification"
                         app:iconGravity="textStart"
                         app:iconPadding="4dp"
-                        app:iconSize="14dp"
-                        app:iconTint="@color/secondary" />
+                        app:iconSize="15dp"
+                        app:iconTint="@color/duo_orange" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -290,42 +327,66 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
-                    android:text="Tất cả" />
+                    android:text="Tất cả"
+                    android:textStyle="bold"
+                    app:chipBackgroundColor="@color/surface"
+                    app:chipStrokeColor="@color/duo_border"
+                    app:chipStrokeWidth="1.5dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipHealth"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sức khỏe" />
+                    android:text="Sức khỏe"
+                    android:textStyle="bold"
+                    app:chipBackgroundColor="@color/surface"
+                    app:chipStrokeColor="@color/duo_border"
+                    app:chipStrokeWidth="1.5dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipWork"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Công việc" />
+                    android:text="Công việc"
+                    android:textStyle="bold"
+                    app:chipBackgroundColor="@color/surface"
+                    app:chipStrokeColor="@color/duo_border"
+                    app:chipStrokeWidth="1.5dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipStudy"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Học tập" />
+                    android:text="Học tập"
+                    android:textStyle="bold"
+                    app:chipBackgroundColor="@color/surface"
+                    app:chipStrokeColor="@color/duo_border"
+                    app:chipStrokeWidth="1.5dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipFinance"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tài chính" />
+                    android:text="Tài chính"
+                    android:textStyle="bold"
+                    app:chipBackgroundColor="@color/surface"
+                    app:chipStrokeColor="@color/duo_border"
+                    app:chipStrokeWidth="1.5dp" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chipHobby"
                     style="@style/Widget.MaterialComponents.Chip.Choice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Sở thích" />
+                    android:text="Sở thích"
+                    android:textStyle="bold"
+                    app:chipBackgroundColor="@color/surface"
+                    app:chipStrokeColor="@color/duo_border"
+                    app:chipStrokeWidth="1.5dp" />
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
 
@@ -336,9 +397,10 @@
             android:layout_height="match_parent"
             android:gravity="center"
             android:lineSpacingExtra="4dp"
-            android:text="Chưa có mục tiêu nào trong danh mục này.\nBấm dấu (+) để thêm mục tiêu mới!"
+            android:text="Chưa có mục tiêu nào trong danh mục này.\nBấm dấu (+) để bắt đầu hành trình mới!"
             android:textColor="@color/text_secondary"
             android:textSize="15sp"
+            android:textStyle="bold"
             android:visibility="gone" />
 
         <!-- Goals RecyclerView -->
@@ -347,20 +409,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            android:paddingBottom="80dp" />
+            android:paddingBottom="88dp" />
 
     </LinearLayout>
 
-    <!-- Floating Action Button to Add Goal -->
+    <!-- Duolingo Green FAB -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAddGoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="20dp"
-        android:backgroundTint="@color/primary"
         android:contentDescription="Thêm mục tiêu"
         android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="@color/duo_green"
+        app:borderWidth="0dp"
+        app:elevation="4dp"
         app:tint="@color/surface" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
